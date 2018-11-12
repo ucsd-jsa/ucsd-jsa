@@ -28,7 +28,7 @@ export default {
       windowSize: 4,
       paginationFactor: 220,
       items: [
-        { name: "Yakiimo1", tag: "date1" },
+        { name: "Yakiimo1", tag: "date1" ,},
         { name: "Yakiimo2", tag: "date2" },
         { name: "Yakiimo3", tag: "date3" },
         { name: "Yakiimo4", tag: "date4" },
@@ -63,19 +63,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$vue-navy: #2c3e50;
-$vue-navy-light: #3a5169;
-$vue-teal: #42b883;
-$vue-teal-light: #42b983;
+$nav: #e06d6d;
 $gray: #666a73;
-$light-gray: #f8f8f8;
 
-body {
-  background: $light-gray;
-  color: $vue-navy;
-  font-family: "Source Sans Pro", sans-serif;
-  min-height: 1000px;
-}
+$card-width: 200px;
+$card-margin: 20px;
 
 .card-carousel-wrapper {
   display: flex;
@@ -88,7 +80,7 @@ body {
 .card-carousel {
   display: flex;
   justify-content: center;
-  width: 880px;
+  width: 4*($card-margin+$card-width);
 
   &--overflow-container {
     overflow: hidden;
@@ -102,14 +94,14 @@ body {
     height: 15px;
     padding: 10px;
     box-sizing: border-box;
-    border-top: 2px solid $vue-teal;
-    border-right: 2px solid $vue-teal;
+    border-top: 10px solid $nav;
+    border-right: 10px solid $nav;
+    border-radius: 3px;
     cursor: pointer;
     margin: 0 10px;
     transition: transform 150ms linear;
     &[disabled] {
-      opacity: 0.2;
-      border-color: black;
+        border-color: rgba(0, 0, 0, 0.2)
     }
   }
 
@@ -130,13 +122,13 @@ body {
 
 .card-carousel-cards {
   display: flex;
-  transition: transform 150ms ease-out;
+  transition: transform 300ms ease-out;
   transform: translatex(0px);
   overflow: visible;
 
-  $card-radius: 30px;
+  $card-radius: 40px;
   .card-carousel--card {
-    margin: 0 10px;
+    margin: 0 $card-margin/2;
     cursor: pointer;
     box-shadow: 0 2px 25px -4px rgba(0, 0, 0, 0.19);
     background-color: #fff;
@@ -173,11 +165,4 @@ body {
   }
 }
 
-h1 {
-  font-size: 3.6em;
-  font-weight: 100;
-  text-align: center;
-  margin-bottom: 0;
-  color: $vue-teal;
-}
 </style>

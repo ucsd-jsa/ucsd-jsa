@@ -87,4 +87,22 @@ export default {
     image: url("../assets/RMW00468.jpg");
   }
 }
+
+.slide--3 {
+  background: {
+    color: rgb(143, 143, 204);
+  }
+}
+
+.slide--4 {
+  background: {
+    color: rgb(238, 111, 111);
+  }
+}
+
+.slide--5 {
+  background: {
+    color: rgb(252, 252, 114);
+  }
+}
 </style>

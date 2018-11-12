@@ -15,14 +15,13 @@
                 <div class='page-2-content'>
                     <h1>Upcoming Events</h1>
                     <img id='event-machine' src='../assets/Machine_Full.png' alt='Events'>
-                    <!--event-list v-bind:allEvents='upcomingEvents'></event-list>-->
-                    <event-card></event-card>
+                   <event-card></event-card>
                 </div>
             </div>
             <div class='page-3 page'>
                 <div class='page-3-content'>
                     <h1>Past Events</h1>
-                    <event-list v-bind:allEvents='pastEvents'></event-list>
+                    <event-card></event-card>
                 </div>
                 <app-footer></app-footer>
             </div>
@@ -33,13 +32,11 @@
 <script>
 /* eslint-disable */
 import Footer from "./Footer";
-import EventList from "./EventList";
 import MyAgile from "./MyAgile";
-import EventCard from "./EventCard"
+import EventCard from "./EventCard";
 export default {
   components: {
     "app-footer": Footer,
-    "event-list": EventList,
     "my-agile": MyAgile,
     "event-card": EventCard
   },
@@ -67,27 +64,6 @@ export default {
           time: "sometime1",
           location: "somewhere1",
           link: "https://www.google.com"
-        },
-        {
-          name: "test2",
-          date: "somedate2",
-          time: "sometime2",
-          location: "somewhere2",
-          link: "https://www.google.com"
-        },
-        {
-          name: "test3",
-          date: "somedate3",
-          time: "sometime3",
-          location: "somewhere3",
-          link: "https://www.google.com"
-        },
-        {
-          name: "test4",
-          date: "somedate4",
-          time: "sometime4",
-          location: "somewhere4",
-          link: "https://www.google.com"
         }
       ],
       pastEvents: [
@@ -96,27 +72,6 @@ export default {
           date: "somedate1",
           time: "sometime1",
           location: "somewhere1",
-          link: "https://www.google.com"
-        },
-        {
-          name: "test2",
-          date: "somedate2",
-          time: "sometime2",
-          location: "somewhere2",
-          link: "https://www.google.com"
-        },
-        {
-          name: "test3",
-          date: "somedate3",
-          time: "sometime3",
-          location: "somewhere3",
-          link: "https://www.google.com"
-        },
-        {
-          name: "test4",
-          date: "somedate4",
-          time: "sometime4",
-          location: "somewhere4",
           link: "https://www.google.com"
         }
       ]
@@ -220,13 +175,14 @@ export default {
     background-color: #ffd5d5;
     height: 100%;
     h1 {
-      margin: 170px 10vw 0 0;
-      float: right;
+      position: absolute;
+      top: 250px;
+      right: 10vw;
     }
     .card-carousel-wrapper {
-        position:absolute;
-        top:40vh;
-        right: 5vw;
+      position: absolute;
+      top: 40vh;
+      right: 8vw;
     }
   }
 }
@@ -239,12 +195,14 @@ export default {
     height: 100%;
     margin-bottom: 20px;
     h1 {
-      margin: 170px 0 0 10vw;
-      float: left;
-    }
-    ul {
+      position: absolute;
+      top: 220px;
       left: 10vw;
-      right: 25vw;
+    }
+    .card-carousel-wrapper {
+      position: absolute;
+      top: 35vh;
+      left: 8vw;
     }
   }
 }
