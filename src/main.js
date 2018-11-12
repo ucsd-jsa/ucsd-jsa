@@ -3,16 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueCarousel from 'vue-carousel'
 import 'animate.css'
 import 'fullpage-vue/src/fullpage.css'
 import VueFullpage from 'fullpage-vue'
 import Footer from './components/Footer'
-Vue.config.productionTip = false
+import VueAgile from 'vue-agile'
 
-Vue.use(VueCarousel)
+Vue.config.productionTip = false
 Vue.use(VueFullpage)
 Vue.use(Footer)
+Vue.use(VueAgile)
 
 /* eslint-disable no-new */
 new Vue({

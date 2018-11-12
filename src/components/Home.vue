@@ -14,7 +14,8 @@
         <div class='fullpage-wp' v-fullpage='opts' ref='homePage'>
             <div class='page-1 page'>
                 <div class='page-1-content'>
-                    <carousel v-animate='{value: "fadeIn"}' :per-page='1' :autoplay='true' :autoplayTimeout= 5000 :autoplayHoverPause='true' :loop='true' paginationActiveColor='#cb7aa4'>
+                    <!--
+                        <carousel v-animate='{value: "fadeIn"}' :per-page='1' :autoplay='true' :autoplayTimeout= 5000 :autoplayHoverPause='true' :loop='true' paginationActiveColor='#cb7aa4' style="height:100%">
                         <slide>
                             <div class='img-holder'>
                                 <img class='slide-show-img' src='../assets/JSAFBbannerattempt.jpg' alt=''>
@@ -31,6 +32,8 @@
                             </div>
                         </slide>
                     </carousel>
+                        -->
+                    <my-agile></my-agile>
                 </div>
             </div>
             <div class='page-2 page'>
@@ -55,10 +58,12 @@
 /* eslint-disable */
 import Footer from "./Footer";
 import EventList from "./EventList";
+import MyAgile from "./MyAgile";
 export default {
   components: {
     "app-footer": Footer,
-    "event-list": EventList
+    "event-list": EventList,
+    "my-agile": MyAgile
   },
   data() {
     var that = this;
@@ -154,6 +159,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+
 #event-machine {
   position: absolute;
   top: 40vh;
@@ -163,17 +169,23 @@ export default {
 .app-footer {
   position: fixed;
 }
-.slide-show-img {
-  vertical-align: middle;
-  max-width: 100%;
-  margin: auto 0;
-}
 
-.img-holder {
-  height: 75vh;
-  overflow: hidden;
-  display: flex;
-  object-fit: contain;
+.slide {
+  background: {
+    position: center;
+    size: cover;
+  }
+  height: 500px;
+
+  &:before {
+    background-color: rgba(#000, 0.2);
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 }
 
 .fullpage-container {
@@ -254,13 +266,14 @@ export default {
   font-size: 26px;
 }
 .page-1 {
-  padding-top: 170px;
   .page-1-content {
     background-color: #ebebeb;
+
+    height: 100%;
+    width: 100%;
   }
 }
 .page-2 {
-  padding-top: 170px;
   padding-bottom: 20px;
   .page-2-content {
     background-color: #ffd5d5;
@@ -279,7 +292,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 170px;
   .page-3-content {
     background-color: #e1f2fe;
     height: 100%;
@@ -299,3 +311,4 @@ p {
   font-size: 16px;
 }
 </style>
+
