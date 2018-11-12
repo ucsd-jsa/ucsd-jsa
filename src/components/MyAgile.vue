@@ -1,5 +1,5 @@
 <template>
-     <agile :options="options">
+     <agile :arrows= false :speed=1000 :autoplay=true :autoplaySpeed=5000 pauseOnDotsHover=true>
         <div class="slide slide--1"><h1>slide1</h1></div>
         <div class="slide slide--2"><h1>slide2</h1></div>
         <div class="slide slide--3"><h1>slide3</h1></div>
@@ -12,11 +12,7 @@
 /* eslint-disable */
 export default {
   data() {
-    return {
-      options: {
-        arrows: false
-      }
-    };
+    return {};
   }
 };
 </script>
@@ -43,8 +39,8 @@ export default {
 
   &__dot {
     button {
-      background-color: transparent;
-      border: 1px solid #fff;
+      border: 1px solid transparent;
+      background-color: rgba(255, 255, 255, 0.3);
       width: 12px;
       height: 12px;
       border-radius: 50%;
@@ -70,17 +66,9 @@ export default {
   }
   width: 100%;
   height: 100%;
-  &:before {
-    background-color: rgba(#000, 0.2);
-    content: "";
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
 
   h1 {
+    color: rgb(192, 192, 192);
     left: 50%;
     transform: translateX(-50%);
     position: fixed;

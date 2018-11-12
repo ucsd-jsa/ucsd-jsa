@@ -1,38 +1,13 @@
 <template>
     <div class='home-body fullpage-container'>
         <ul class='nav-group'>
-            <li class='nav-prev' @click='movePrev'>
-                <img src='../assets/arrow_up.png' alt=''>
-            </li>
             <li class='nav-dots' v-bind:class='{active:index == 0}' @click='moveTo(0)'></li>
             <li class='nav-dots' v-bind:class='{active:index == 1}' @click='moveTo(1)'></li>
             <li class='nav-dots' v-bind:class='{active:index == 2}' @click='moveTo(2)'></li>
-            <li class='nav-next' @click='moveNext'>
-                <img src='../assets/arrow_down.png' alt=''>
-            </li>
         </ul>
         <div class='fullpage-wp' v-fullpage='opts' ref='homePage'>
             <div class='page-1 page'>
                 <div class='page-1-content'>
-                    <!--
-                        <carousel v-animate='{value: "fadeIn"}' :per-page='1' :autoplay='true' :autoplayTimeout= 5000 :autoplayHoverPause='true' :loop='true' paginationActiveColor='#cb7aa4' style="height:100%">
-                        <slide>
-                            <div class='img-holder'>
-                                <img class='slide-show-img' src='../assets/JSAFBbannerattempt.jpg' alt=''>
-                            </div>
-                        </slide>
-                        <slide>
-                            <div class='img-holder'>
-                                <img class='slide-show-img' src='../assets/RMW00468.jpg' alt=''>
-                            </div>
-                        </slide>
-                        <slide>
-                            <div class='img-holder'>
-                                <img class='slide-show-img' src='../assets/JSAFBbannerattempt.jpg' alt=''>
-                            </div>
-                        </slide>
-                    </carousel>
-                        -->
                     <my-agile></my-agile>
                 </div>
             </div>
@@ -40,7 +15,8 @@
                 <div class='page-2-content'>
                     <h1>Upcoming Events</h1>
                     <img id='event-machine' src='../assets/Machine_Full.png' alt='Events'>
-                    <event-list v-bind:allEvents='upcomingEvents'></event-list>
+                    <!--event-list v-bind:allEvents='upcomingEvents'></event-list>-->
+                    <event-card></event-card>
                 </div>
             </div>
             <div class='page-3 page'>
@@ -59,11 +35,13 @@
 import Footer from "./Footer";
 import EventList from "./EventList";
 import MyAgile from "./MyAgile";
+import EventCard from "./EventCard"
 export default {
   components: {
     "app-footer": Footer,
     "event-list": EventList,
-    "my-agile": MyAgile
+    "my-agile": MyAgile,
+    "event-card": EventCard
   },
   data() {
     var that = this;
@@ -159,7 +137,6 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-
 #event-machine {
   position: absolute;
   top: 40vh;
@@ -202,60 +179,25 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 
-  max-height: 32vh;
-  width: 35px;
-  border-radius: 20px;
+  max-height: 18vh;
   position: fixed;
   z-index: 1000;
   top: 0;
   bottom: 0;
   margin: auto;
-  left: 2vw;
+  left: 1.5vw;
   background-color: rgba(#bfbfbf, 0);
-  &:hover {
-    transition: 600ms;
-    background-color: rgba(#bfbfbf, 0.4);
-    .nav-dots {
-      border: #ffffff 1.5px solid;
-      background: #ffffff;
-    }
-    .nav-prev,
-    .nav-next {
-      img {
-        opacity: 0.9;
-      }
-    }
-  }
-
-  .nav-prev,
-  .nav-next {
-    width: 20px;
-    height: 14.2857143px;
-    img {
-      max-width: 100%;
-      object-fit: contain;
-      opacity: 0.5;
-    }
-    &:active {
-      img {
-        opacity: 1;
-      }
-    }
-  }
-
-  li {
-    margin: auto;
-    width: 10px;
-    height: 10px;
-  }
 
   .nav-dots {
+    margin: auto;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    border: #ffffff70 1.5px solid;
+    border: #ffffffb6 4px solid;
 
     &.active {
       background: #da6f6f;
-      border: #da6f6f 1px solid;
+      border: #da6f6f 4px solid;
     }
   }
 }
@@ -274,7 +216,6 @@ export default {
   }
 }
 .page-2 {
-  padding-bottom: 20px;
   .page-2-content {
     background-color: #ffd5d5;
     height: 100%;
@@ -282,9 +223,10 @@ export default {
       margin: 170px 10vw 0 0;
       float: right;
     }
-    ul {
-      left: 25vw;
-      right: 10vw;
+    .card-carousel-wrapper {
+        position:absolute;
+        top:40vh;
+        right: 5vw;
     }
   }
 }
