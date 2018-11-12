@@ -1,23 +1,34 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+  <div id='app'>
+      <app-mask></app-mask>
+      <app-header></app-header>
+      <home></home>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
+import Header from "./components/Header.vue";
+import Home from "./components/Home.vue";
+import Mask from "./components/Mask.vue";
+
 export default {
-  name: 'App'
-}
+  components: {
+    "app-header": Header,
+    home: Home,
+    "app-mask": Mask
+  },
+  data() {
+    return {};
+  }
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang='scss'>
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #707070;
 }
 </style>
