@@ -2,10 +2,10 @@
     <header ref='refHeader' class='header-original'>
         <img id='logo' src='../assets/JSAlogoattemptred.png' alt='UCSD_JSA_LOGO'>
         <ul class='tabs'>
-            <li class='tab' :style='{"color":"#CB7AA4"}'>About</li>
-            <li class='tab'>Events</li>
-            <li class='tab'>Board</li>
-            <li class='tab'>Contact</li>
+            <li class='tab'><router-link to="/" :style='{"color":"#CB7AA4"}'>Home</router-link></li>
+            <li class='tab'><router-link to="/about">About</router-link></li>
+            <li class='tab'><router-link to="/board">Board</router-link></li>
+            <li class='tab'><router-link to="/contact">Contact</router-link></li>
         </ul>
     </header>
 </template>
@@ -62,6 +62,9 @@ $header-l-r-pad: 8vw;
       margin: 100px 1.5vw auto 1.5vw;
       font-size: 25px;
       cursor: pointer;
+      a {
+          text-decoration: none;
+      }
     }
   }
 }

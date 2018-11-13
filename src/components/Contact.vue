@@ -1,5 +1,6 @@
 <template>
     <div>
+        This is the contact page
     </div>
 </template>
 
@@ -9,7 +10,6 @@ export default {
   data () {
     return {
     }
-
   }
 }
 </script>

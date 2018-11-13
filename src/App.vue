@@ -2,21 +2,23 @@
   <div id='app'>
       <app-mask></app-mask>
       <app-header></app-header>
-      <home></home>
+      <router-view></router-view>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import Header from "./components/Header.vue";
-import Home from "./components/Home.vue";
-import Mask from "./components/Mask.vue";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Mask from "./components/Mask";
+//import Footer from "./components/Footer";
 
 export default {
   components: {
     "app-header": Header,
     home: Home,
-    "app-mask": Mask
+    "app-mask": Mask,
+    //"app-footer": Footer
   },
   data() {
     return {};
