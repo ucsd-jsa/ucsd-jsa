@@ -1,12 +1,12 @@
 <template>
     <div class="card-carousel-wrapper">
         <div class="card-carousel--nav__left" @click="moveCarousel(-1)" :disabled="atHeadOfList"></div>
-        <div class="card-carousel">
+        <div class="card-carousel" :class="$mq">
             <div class="card-carousel--overflow-container">
-                <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'px' + ')'}">
+                <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'vw' + ')'}">
                     <div class="card-carousel--card" v-for="item in items" v-bind:key="item.name">
-                        <img src="https://placehold.it/200x200" />
-                        <div class="card-carousel--card--footer">
+                        <div class="card-content"></div>
+                        <div class="card-carousel--card--footer" :style="{'background-color': item.color}">
                             <p>{{ item.name }}</p>
                             <p>{{ item.tag }}</p>
                         </div>
@@ -25,62 +25,89 @@ export default {
   data() {
     return {
       currentOffset: 0,
-      windowSize: 4,
-      paginationFactor: 220,
       items: [
-        { name: "Yakiimo1", tag: "date1" ,},
+        { name: "Yakiimo1", tag: "date1" },
         { name: "Yakiimo2", tag: "date2" },
         { name: "Yakiimo3", tag: "date3" },
         { name: "Yakiimo4", tag: "date4" },
         { name: "Yakiimo5", tag: "date5" },
         { name: "Yakiimo6", tag: "date6" },
         { name: "Yakiimo7", tag: "date7" }
-      ]
+      ],
+      windowSize: 0,
+      leftCounter: 0
     };
+  },
+  created: function() {
+    if (this.$mq === "phone") this.windowSize = 1;
+    if (this.$mq === "tablet") this.windowSize = 2;
+    if (this.$mq === "laptop") this.windowSize = 3;
+    if (this.$mq === "desktop") this.windowSize = 4;
+    this.items.forEach((item)=> {
+        item.color = '#' + (Math.random()*0xFFFFFF<<0).toString(16);
+    })
   },
   computed: {
     atEndOfList() {
-      return (
-        this.currentOffset <=
-        this.paginationFactor * -1 * (this.items.length - this.windowSize)
-      );
+      return this.leftCounter == this.items.length - this.windowSize;
     },
     atHeadOfList() {
-      return this.currentOffset === 0;
+      return this.leftCounter == 0;
     }
   },
   methods: {
     moveCarousel(direction) {
-      // Find a more elegant way to express the :style. consider using props to make it truly generic
+      var paginationFactor = 0;
+      if (this.$mq === "phone") paginationFactor = 60 + 2;
+      if (this.$mq === "tablet") paginationFactor = 25 + 2;
+      if (this.$mq === "laptop") paginationFactor = 17.2 + 2;
+      if (this.$mq === "desktop") paginationFactor = 13.2 + 2;
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor;
+        this.currentOffset -= paginationFactor;
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor;
+        this.currentOffset += paginationFactor;
+      }
+      if (!this.atHeadOfList && direction == -1) this.leftCounter--;
+      if (!this.atEndOfList && direction == 1) this.leftCounter++;
+    },
+    handleResize(event) {
+      var newSize;
+      if (this.$mq === "phone") newSize = 1;
+      if (this.$mq === "tablet") newSize = 2;
+      if (this.$mq === "laptop") newSize = 3;
+      if (this.$mq === "desktop") newSize = 4;
+      if (this.windowSize != newSize) {
+        this.windowSize = newSize;
+        this.currentOffset = 0;
+        this.leftCounter = 0;
       }
     }
-  }
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
+  beforeDestroy: function() {
+    window.removeEventListener("resize", this.handleResize);
+  },
 };
 </script>
 
 <style scoped lang="scss">
 $nav: #e06d6d;
 $gray: #666a73;
-
-$card-width: 200px;
-$card-margin: 20px;
+$card-radius: 40px;
 
 .card-carousel-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0 40px;
   color: $gray;
+  margin: 20px 0 40px;
 }
 
 .card-carousel {
   display: flex;
   justify-content: center;
-  width: 4*($card-margin+$card-width);
 
   &--overflow-container {
     overflow: hidden;
@@ -101,7 +128,7 @@ $card-margin: 20px;
     margin: 0 10px;
     transition: transform 150ms linear;
     &[disabled] {
-        border-color: rgba(0, 0, 0, 0.2)
+      border-color: rgba(0, 0, 0, 0.2);
     }
   }
 
@@ -126,16 +153,16 @@ $card-margin: 20px;
   transform: translatex(0px);
   overflow: visible;
 
-  $card-radius: 40px;
   .card-carousel--card {
-    margin: 0 $card-margin/2;
     cursor: pointer;
     box-shadow: 0 2px 25px -4px rgba(0, 0, 0, 0.19);
     background-color: #fff;
-    border-radius: $card-radius;
     z-index: 3;
     margin-bottom: 2px;
-    transition: all .2s ease-out;
+    transition: all 0.2s ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &:hover {
       border: blacks solid 1px;
@@ -143,26 +170,125 @@ $card-margin: 20px;
       transform: translateY(2px);
     }
 
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    img {
+    .card-content {
       vertical-align: bottom;
-      border-top-left-radius: $card-radius;
-      border-top-right-radius: $card-radius;
       transition: opacity 150ms linear;
       user-select: none;
+
+      border-top-left-radius: $card-radius;
+      border-top-right-radius: $card-radius;
 
       &:hover {
         opacity: 0.5;
       }
     }
+    &--footer {
+      border-bottom-left-radius: $card-radius;
+      border-bottom-right-radius: $card-radius;
+    }
   }
 }
 
+//media
+
+$card-margin: 2vw;
+
+.card-carousel {
+  &.phone {
+    $card-width: 60vw;
+    $card-height: 1.35 * $card-width;
+    width: ($card-margin + $card-width);
+    .card-carousel-cards {
+      .card-carousel--card {
+        width: $card-width;
+        height: $card-height;
+        margin: 0 $card-margin/2;
+        border-radius: $card-radius;
+        .card-content {
+          width: $card-width;
+          height: $card-width * 0.85;
+        }
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  &.tablet {
+    $card-width: 25vw;
+    $card-height: 1.35 * $card-width;
+    width: 2 * ($card-margin + $card-width);
+    .card-carousel-cards {
+      .card-carousel--card {
+        width: $card-width;
+        height: $card-height;
+        margin: 0 $card-margin/2;
+        border-radius: $card-radius;
+        .card-content {
+          width: $card-width;
+          height: $card-width * 0.85;
+        }
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  &.laptop {
+    $card-width: 17.2vw;
+    $card-height: 1.35 * $card-width;
+    width: 3 * ($card-margin + $card-width);
+    .card-carousel-cards {
+      .card-carousel--card {
+        width: $card-width;
+        height: $card-height;
+        margin: 0 $card-margin/2;
+        border-radius: $card-radius;
+        .card-content {
+          width: $card-width;
+          height: $card-width * 0.85;
+        }
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  &.desktop {
+    $card-width: 13.2vw;
+    $card-height: 1.35 * $card-width;
+    width: 4 * ($card-margin + $card-width);
+    .card-carousel-cards {
+      .card-carousel--card {
+        width: $card-width;
+        height: $card-height;
+        margin: 0 $card-margin/2;
+        border-radius: $card-radius;
+        .card-content {
+          width: $card-width;
+          height: $card-width * 0.85;
+        }
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
 </style>

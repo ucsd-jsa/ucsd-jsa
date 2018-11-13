@@ -16,11 +16,10 @@ Vue.use(Footer)
 Vue.use(VueAgile)
 Vue.use(VueMq, {
   breakpoints: {
-    desktop: Infinity,
-    laptopL: 1440,
-    laptopS: 1024,
-    tablet: 768,
-    phone: 425
+    phone: 600,
+    tablet: 900,
+    laptop: 1440,
+    desktop: Infinity
   }
 })
 

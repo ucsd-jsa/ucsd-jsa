@@ -13,8 +13,8 @@
             </div>
             <div class='page-2 page'>
                 <div class='page-2-content'>
-                    <h1>Upcoming Events</h1>
-                    <img id='event-machine' src='../assets/Machine_Full.png' alt='Events'>
+                    <h1>Upcoming Events {{$mq}}</h1>
+                    <img id='event-machine' src='../assets/Machine_Full.png' alt='Events' v-if="$mq != 'phone'">
                    <event-card></event-card>
                 </div>
             </div>
@@ -93,11 +93,16 @@ export default {
 
 <style scoped lang='scss'>
 #event-machine {
+  
+  &.phone {
+      display: none;
+  }
   position: absolute;
   top: 40vh;
   left: 10vw;
   height: 40%;
 }
+
 .app-footer {
   position: fixed;
 }

@@ -1,5 +1,5 @@
 <template>
-     <agile :arrows= false :speed=1000 :autoplay=true :autoplaySpeed=5000 pauseOnDotsHover=true>
+     <agile :arrows= false :speed=1000 :autoplay=true :autoplaySpeed=5000>
         <div class="slide slide--1"><h1>slide1</h1></div>
         <div class="slide slide--2"><h1>slide2</h1></div>
         <div class="slide slide--3"><h1>slide3</h1></div>
