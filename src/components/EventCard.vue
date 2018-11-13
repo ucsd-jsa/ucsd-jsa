@@ -8,7 +8,8 @@
                         <div class="card-content"></div>
                         <div class="card-carousel--card--footer" :style="{'background-color': item.color}">
                             <p>{{ item.name }}</p>
-                            <p>{{ item.tag }}</p>
+                            <p>{{ item.date }}</p>
+                            <p>{{ item.location }}</p>
                         </div>
                     </div>
                 </div>
@@ -22,20 +23,14 @@
 /* eslint-disable */
 export default {
   components: {},
+  props: ["allEvents"],
   data() {
     return {
       currentOffset: 0,
-      items: [
-        { name: "Yakiimo1", tag: "date1" },
-        { name: "Yakiimo2", tag: "date2" },
-        { name: "Yakiimo3", tag: "date3" },
-        { name: "Yakiimo4", tag: "date4" },
-        { name: "Yakiimo5", tag: "date5" },
-        { name: "Yakiimo6", tag: "date6" },
-        { name: "Yakiimo7", tag: "date7" }
-      ],
+      items: [],
       windowSize: 0,
-      leftCounter: 0
+      leftCounter: 0,
+      colors: ["#FD8181", "#FDE689", "#FEFF99", "#BEFF95", "#A88EEA"]
     };
   },
   created: function() {
@@ -43,9 +38,6 @@ export default {
     if (this.$mq === "tablet") this.windowSize = 2;
     if (this.$mq === "laptop") this.windowSize = 3;
     if (this.$mq === "desktop") this.windowSize = 4;
-    this.items.forEach((item)=> {
-        item.color = '#' + (Math.random()*0xFFFFFF<<0).toString(16);
-    })
   },
   computed: {
     atEndOfList() {
@@ -83,12 +75,24 @@ export default {
       }
     }
   },
+  beforeMount() {
+    this.items = this.allEvents;
+  },
   mounted() {
     window.addEventListener("resize", this.handleResize);
   },
   beforeDestroy: function() {
     window.removeEventListener("resize", this.handleResize);
   },
+  watch: {
+    items: function() {
+      this.items.forEach(item => {
+        var c = this.colors[Math.floor(Math.random() * this.colors.length)];
+        //item.color = "#" + ((Math.random() * 0xffffff) << 0).toString(16);
+        item.color = c;
+      });
+    }
+  }
 };
 </script>
 
@@ -156,7 +160,7 @@ $card-radius: 40px;
   .card-carousel--card {
     cursor: pointer;
     box-shadow: 0 2px 25px -4px rgba(0, 0, 0, 0.19);
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.342);
     z-index: 3;
     margin-bottom: 2px;
     transition: all 0.2s ease-out;
@@ -177,14 +181,20 @@ $card-radius: 40px;
 
       border-top-left-radius: $card-radius;
       border-top-right-radius: $card-radius;
-
+      background-color: rgba(255, 255, 255, 0.50);
       &:hover {
         opacity: 0.5;
       }
     }
     &--footer {
+      height: 40%;
       border-bottom-left-radius: $card-radius;
       border-bottom-right-radius: $card-radius;
+
+      p {
+        color: rgb(48, 48, 48);
+        font-size: 0.8em;
+      }
     }
   }
 }

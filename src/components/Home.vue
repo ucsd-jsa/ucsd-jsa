@@ -15,13 +15,13 @@
                 <div class='page-2-content'>
                     <h1>Upcoming Events {{$mq}}</h1>
                     <img id='event-machine' src='../assets/Machine_Full.png' alt='Events' v-if="$mq != 'phone'">
-                   <event-card></event-card>
+                   <event-card v-bind:allEvents="upcomingEvents"></event-card>
                 </div>
             </div>
             <div class='page-3 page'>
                 <div class='page-3-content'>
                     <h1>Past Events</h1>
-                    <event-card></event-card>
+                    <event-card v-bind:allEvents="pastEvents"></event-card>
                 </div>
                 <app-footer></app-footer>
             </div>
@@ -34,6 +34,18 @@
 import Footer from "./Footer";
 import MyAgile from "./MyAgile";
 import EventCard from "./EventCard";
+import Firebase from "firebase";
+var database = Firebase.initializeApp({
+  apiKey: "AIzaSyDLW28ig83t3MkGlZFXXNaIQTgCcf-cQ2k",
+  authDomain: "ucsd-jsa.firebaseapp.com",
+  databaseURL: "https://ucsd-jsa.firebaseio.com",
+  projectId: "ucsd-jsa",
+  storageBucket: "ucsd-jsa.appspot.com",
+  messagingSenderId: "784662637069"
+})
+  .database()
+  .ref("events");
+
 export default {
   components: {
     "app-footer": Footer,
@@ -57,24 +69,8 @@ export default {
           that.index = current;
         }
       },
-      upcomingEvents: [
-        {
-          name: "test1",
-          date: "somedate1",
-          time: "sometime1",
-          location: "somewhere1",
-          link: "https://www.google.com"
-        }
-      ],
-      pastEvents: [
-        {
-          name: "test1",
-          date: "somedate1",
-          time: "sometime1",
-          location: "somewhere1",
-          link: "https://www.google.com"
-        }
-      ]
+      pastEvents: [],
+      upcomingEvents: []
     };
   },
   methods: {
@@ -87,15 +83,41 @@ export default {
     moveTo: function(index) {
       this.$refs.homePage.$fullpage.moveTo(index, true);
     }
+  },
+  created: function() {
+    database.once("value", events => {
+      events.forEach(event => {
+        var now = new Date();
+        var eventDate = new Date(event.child("date").val());
+        if (now < eventDate) {
+          this.upcomingEvents.push({
+            name: event.key,
+            date: new Date(event.child("date").val()),
+            location: event.child("location").val(),
+            fbLink: event.child("fbLink").val(),
+            img: event.child("img").val(),
+            detail: event.child("detail").val()
+          });
+        } else {
+          this.pastEvents.push({
+            name: event.key,
+            date: new Date(event.child("date").val()),
+            location: event.child("location").val(),
+            fbLink: event.child("fbLink").val(),
+            img: event.child("img").val(),
+            detail: event.child("detail").val()
+          });
+        }
+      });
+    });
   }
 };
 </script>
 
 <style scoped lang='scss'>
 #event-machine {
-  
   &.phone {
-      display: none;
+    display: none;
   }
   position: absolute;
   top: 40vh;
