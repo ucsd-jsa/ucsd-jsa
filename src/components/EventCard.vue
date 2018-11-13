@@ -4,12 +4,12 @@
         <div class="card-carousel" :class="$mq">
             <div class="card-carousel--overflow-container">
                 <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'vw' + ')'}">
-                    <div class="card-carousel--card" v-for="item in items" v-bind:key="item.name">
-                        <div class="card-content"></div>
+                    <div class="card-carousel--card" v-for="item in sorted_items" v-bind:key="item.name">
+                        <div class="card-content" :style="{ 'background-image': item.img}"></div>
                         <div class="card-carousel--card--footer" :style="{'background-color': item.color}">
-                            <p>{{ item.name }}</p>
-                            <p>{{ item.date }}</p>
-                            <p>{{ item.location }}</p>
+                            <p class="event-name">{{ item.name }}</p>
+                            <p class="event-date">{{ item.date | moment('MMM Do, h:mm a') }}</p>
+                            <p class="event-location">{{ item.location }}</p>
                         </div>
                     </div>
                 </div>
@@ -45,6 +45,15 @@ export default {
     },
     atHeadOfList() {
       return this.leftCounter == 0;
+    },
+    sorted_items() {
+        return this.items.sort((a,b)=> {
+            var direction = 1
+            if (a.date < new Date()) direction = -1
+            if (a.date > b.date) return direction
+            if (a.date == b.date) return 0
+            if (a.date < b.date) return -direction
+        });
     }
   },
   methods: {
@@ -90,6 +99,11 @@ export default {
         var c = this.colors[Math.floor(Math.random() * this.colors.length)];
         //item.color = "#" + ((Math.random() * 0xffffff) << 0).toString(16);
         item.color = c;
+        if (item.location == null) item.location = "TBD";
+        if (item.img != null && item.img[0]!='u') {
+          item.img = "url(" + '"' + item.img + '"' + ")";
+          console.log(item.img);
+        }
       });
     }
   }
@@ -178,10 +192,14 @@ $card-radius: 40px;
       vertical-align: bottom;
       transition: opacity 150ms linear;
       user-select: none;
+      background: {
+        position: center;
+        size: cover;
+      }
 
       border-top-left-radius: $card-radius;
       border-top-right-radius: $card-radius;
-      background-color: rgba(255, 255, 255, 0.50);
+      background-color: rgba(255, 255, 255, 0.5);
       &:hover {
         opacity: 0.5;
       }
@@ -190,16 +208,25 @@ $card-radius: 40px;
       height: 40%;
       border-bottom-left-radius: $card-radius;
       border-bottom-right-radius: $card-radius;
+      padding: 5px;
 
       p {
         color: rgb(48, 48, 48);
-        font-size: 0.8em;
+      }
+      $info-size: 1.2vw;
+      .event-name {
+        font-weight: bold;
+        font-size: 1.1 * $info-size;
+      }
+      .event-date {
+        font-size: 0.8 * $info-size;
+      }
+      .event-location {
+        font-size: 0.8 * $info-size;
       }
     }
   }
 }
-
-//media
 
 $card-margin: 2vw;
 

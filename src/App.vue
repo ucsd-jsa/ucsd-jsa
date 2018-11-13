@@ -25,10 +25,11 @@ export default {
 </script>
 
 <style lang='scss'>
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c");
 * {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   color: #707070;
 }
 </style>

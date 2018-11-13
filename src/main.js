@@ -15,6 +15,7 @@ Vue.config.productionTip = false
 Vue.use(VueFullpage)
 Vue.use(Footer)
 Vue.use(VueAgile)
+Vue.use(require('vue-moment'))
 Vue.use(VueMq, {
   breakpoints: {
     phone: 600,
