@@ -2,7 +2,7 @@
     <div class="card-carousel-wrapper">
         <div class="card-carousel--nav__left" @click="moveCarousel(-1)" :disabled="atHeadOfList"></div>
         <div class="card-carousel" :class="$mq">
-            <div class="card-carousel--overflow-container">
+            <div class="card-carousel--overflow-container" :class="$mq">
                 <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'vw' + ')'}">
                     <div class="card-carousel--card" v-for="item in sorted_items" v-bind:key="item.name">
                         <div class="card-content" :style="{ 'background-image': item.img}"></div>
@@ -47,22 +47,22 @@ export default {
       return this.leftCounter == 0;
     },
     sorted_items() {
-        return this.items.sort((a,b)=> {
-            var direction = 1
-            if (a.date < new Date()) direction = -1
-            if (a.date > b.date) return direction
-            if (a.date == b.date) return 0
-            if (a.date < b.date) return -direction
-        });
+      return this.items.sort((a, b) => {
+        var direction = 1;
+        if (a.date < new Date()) direction = -1;
+        if (a.date > b.date) return direction;
+        if (a.date == b.date) return 0;
+        if (a.date < b.date) return -direction;
+      });
     }
   },
   methods: {
     moveCarousel(direction) {
       var paginationFactor = 0;
-      if (this.$mq === "phone") paginationFactor = 60 + 2;
+      if (this.$mq === "phone") paginationFactor = 70+2;
       if (this.$mq === "tablet") paginationFactor = 25 + 2;
       if (this.$mq === "laptop") paginationFactor = 17.2 + 2;
-      if (this.$mq === "desktop") paginationFactor = 13.2 + 2;
+      if (this.$mq === "desktop") paginationFactor = 16 + 2;
       if (direction === 1 && !this.atEndOfList) {
         this.currentOffset -= paginationFactor;
       } else if (direction === -1 && !this.atHeadOfList) {
@@ -100,7 +100,7 @@ export default {
         //item.color = "#" + ((Math.random() * 0xffffff) << 0).toString(16);
         item.color = c;
         if (item.location == null) item.location = "TBD";
-        if (item.img != null && item.img[0]!='u') {
+        if (item.img != null && item.img[0] != "u") {
           item.img = "url(" + '"' + item.img + '"' + ")";
           console.log(item.img);
         }
@@ -129,7 +129,18 @@ $card-radius: 40px;
 
   &--overflow-container {
     overflow: hidden;
-    padding: 10px;
+    &.phone {
+      padding: 3vw;
+    }
+    &.tablet {
+      padding: 10px;
+    }
+    &.laptop {
+      padding: 10px;
+    }
+    &.desktop {
+      padding: 10px;
+    }
   }
 
   &--nav__left,
@@ -213,17 +224,6 @@ $card-radius: 40px;
       p {
         color: rgb(48, 48, 48);
       }
-      $info-size: 1.2vw;
-      .event-name {
-        font-weight: bold;
-        font-size: 1.1 * $info-size;
-      }
-      .event-date {
-        font-size: 0.8 * $info-size;
-      }
-      .event-location {
-        font-size: 0.8 * $info-size;
-      }
     }
   }
 }
@@ -232,30 +232,49 @@ $card-margin: 2vw;
 
 .card-carousel {
   &.phone {
-    $card-width: 60vw;
+    $info-size: 6vw;
+    .event-name {
+      font-weight: bold;
+      font-size: 1.1 * $info-size;
+    }
+    .event-date {
+      font-size: 0.8 * $info-size;
+    }
+    .event-location {
+      font-size: 0.8 * $info-size;
+    }
+    $card-width: 70vw;
     $card-height: 1.35 * $card-width;
-    width: ($card-margin + $card-width);
+    width: ($card-width + 1vw);
+
     .card-carousel-cards {
       .card-carousel--card {
         width: $card-width;
         height: $card-height;
-        margin: 0 $card-margin/2;
         border-radius: $card-radius;
+        margin: 0 1vw;
         .card-content {
           width: $card-width;
           height: $card-width * 0.85;
         }
         &:first-child {
-          margin-left: 0;
-        }
-
-        &:last-child {
-          margin-right: 0;
+          margin-left: -2.5vw;
         }
       }
     }
   }
   &.tablet {
+    $info-size: 2.2vw;
+    .event-name {
+      font-weight: bold;
+      font-size: 1.1 * $info-size;
+    }
+    .event-date {
+      font-size: 0.8 * $info-size;
+    }
+    .event-location {
+      font-size: 0.8 * $info-size;
+    }
     $card-width: 25vw;
     $card-height: 1.35 * $card-width;
     width: 2 * ($card-margin + $card-width);
@@ -280,6 +299,17 @@ $card-margin: 2vw;
     }
   }
   &.laptop {
+    $info-size: 1.5vw;
+    .event-name {
+      font-weight: bold;
+      font-size: 1.1 * $info-size;
+    }
+    .event-date {
+      font-size: 0.8 * $info-size;
+    }
+    .event-location {
+      font-size: 0.8 * $info-size;
+    }
     $card-width: 17.2vw;
     $card-height: 1.35 * $card-width;
     width: 3 * ($card-margin + $card-width);
@@ -304,7 +334,18 @@ $card-margin: 2vw;
     }
   }
   &.desktop {
-    $card-width: 13.2vw;
+    $info-size: 1.2vw;
+    .event-name {
+      font-weight: bold;
+      font-size: 1.22 * $info-size;
+    }
+    .event-date {
+      font-size: 1 * $info-size;
+    }
+    .event-location {
+      font-size: 1 * $info-size;
+    }
+    $card-width: 16vw;
     $card-height: 1.35 * $card-width;
     width: 4 * ($card-margin + $card-width);
     .card-carousel-cards {
