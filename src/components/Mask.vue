@@ -40,7 +40,7 @@ export default {
         opacity: 0;
     }
     .mask-container {
-        position: absolute;
+        position: fixed;
         z-index: 1000;
         background-color: white;
         width: 100vw;

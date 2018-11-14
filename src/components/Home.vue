@@ -33,17 +33,8 @@
 /* eslint-disable */
 import MyAgile from "./MyAgile";
 import EventCard from "./EventCard";
-import Firebase from "firebase";
-var database = Firebase.initializeApp({
-  apiKey: "AIzaSyDLW28ig83t3MkGlZFXXNaIQTgCcf-cQ2k",
-  authDomain: "ucsd-jsa.firebaseapp.com",
-  databaseURL: "https://ucsd-jsa.firebaseio.com",
-  projectId: "ucsd-jsa",
-  storageBucket: "ucsd-jsa.appspot.com",
-  messagingSenderId: "784662637069"
-})
-  .database()
-  .ref("events");
+import {db} from '../Firebase.js'
+
 
 export default {
   components: {
@@ -83,7 +74,7 @@ export default {
     }
   },
   created: function() {
-    database.once("value", events => {
+    db.ref('events').once("value", events => {
       events.forEach(event => {
         var now = new Date();
         var eventDate = new Date(event.child("date").val());

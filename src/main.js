@@ -11,25 +11,26 @@ import Footer from './components/Footer'
 import VueAgile from 'vue-agile'
 import VueMq from 'vue-mq'
 
+
 Vue.config.productionTip = false
 Vue.use(VueFullpage)
 Vue.use(Footer)
 Vue.use(VueAgile)
 Vue.use(require('vue-moment'))
 Vue.use(VueMq, {
-  breakpoints: {
-    phone: 600,
-    tablet: 900,
-    laptop: 1440,
-    desktop: Infinity
-  }
+    breakpoints: {
+        phone: 600,
+        tablet: 900,
+        laptop: 1440,
+        desktop: Infinity
+    }
 })
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>',
-  render: h => h(App)
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>',
+    render: h => h(App)
 })
