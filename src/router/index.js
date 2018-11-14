@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Board from '@/components/Board'
 import Contact from '@/components/Contact'
 import About from '@/components/About'
+import Events from '@/components/Events'
 
 Vue.use(Router)
 /* eslint-disable */
@@ -28,6 +29,11 @@ export default new Router({
             path: '/contact',
             name: 'Contact',
             component: Contact
+        },
+        {
+            path: '/events',
+            name: 'Events',
+            component: Events
         }
     ]
 })

@@ -66,40 +66,47 @@ export default {
 
 <style scoped lang="scss">
 .outer {
-  background-color: #bcaaa4;
+  background-image: url("https://www.colourbox.com/preview/21436129-pattern-seamless-ocean-waves-hand-draw-japan-style-white-hand-draw-on-a-blue-background.jpg");
+  background-size: 400px;
+  .header {
+      color:rgb(44, 44, 44);
+      background: rgba(255, 255, 255, 0.534);
+      padding: 5px 30px;
+      border-radius: 5px;
+  }
   &.phone {
     padding-top: 80px;
     .header {
       font-size: 8vw;
     }
     .staffs {
-        margin-top: 80px;
+      margin-top: 80px;
     }
-  };
+  }
   &.tablet {
     padding-top: 120px;
     .header {
       font-size: 5vw;
     }
     .staffs {
-        margin-top: 80px;
+      margin-top: 80px;
     }
-  };
+  }
   &.laptop {
     padding-top: 60px;
     .header {
       font-size: 4vw;
     }
     .staffs {
-        margin-top: 80px;
+      margin-top: 80px;
     }
-  };
+  }
   &.desktop {
     .header {
       font-size: 2vw;
     }
     .staffs {
-        margin-top: 80px;
+      margin-top: 80px;
     }
   }
 }

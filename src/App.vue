@@ -10,14 +10,12 @@
 <script>
 /* eslint-disable */
 import Header from "./components/Header";
-import Home from "./components/Home";
 import Mask from "./components/Mask";
 import Footer from "./components/Footer";
 
 export default {
   components: {
     "app-header": Header,
-    home: Home,
     "app-mask": Mask,
     "app-footer": Footer
   },

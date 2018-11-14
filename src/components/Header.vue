@@ -4,6 +4,7 @@
         <ul class='tabs'>
             <li class='tab'><router-link to="/" :style='{"color":"#CB7AA4"}'>Home</router-link></li>
             <li class='tab'><router-link to="/about">About</router-link></li>
+            <li class='tab'><router-link to="/events">Events</router-link></li>
             <li class='tab'><router-link to="/board">Board</router-link></li>
             <li class='tab'><router-link to="/contact">Contact</router-link></li>
         </ul>
@@ -72,7 +73,7 @@ export default {
       .tab {
         margin: auto 5px 0 5px;
         a {
-          font-size: 1.2em;
+          font-size: 1em;
         }
       }
     }
