@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="outer" :class="$mq">
         <div class="container officers">
             <h1 class="header">2018-2019 Officers</h1>
             <div class="container-inner" v-for="item in officers" v-bind:key="item.name">
@@ -9,7 +9,7 @@
                 </card>
             </div>
         </div>
-        <div class="container staffs">
+        <div class="container staffs" :class="$mq">
             <h1 class="header">2018-2019 Staffs</h1>
             <div class="container-inner" v-for="item in staffs" v-bind:key="item.name">
                 <card :data-image="item.img">
@@ -49,7 +49,7 @@ export default {
             position: item.child("position").val()
           });
         } else {
-            this.officers.push({
+          this.officers.push({
             name: item.key,
             img: item.child("img").val(),
             intro: item.child("intro").val(),
@@ -65,15 +65,52 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.outer {
+  background-color: #bcaaa4;
+  &.phone {
+    padding-top: 80px;
+    .header {
+      font-size: 8vw;
+    }
+    .staffs {
+        margin-top: 80px;
+    }
+  };
+  &.tablet {
+    padding-top: 120px;
+    .header {
+      font-size: 5vw;
+    }
+    .staffs {
+        margin-top: 80px;
+    }
+  };
+  &.laptop {
+    padding-top: 60px;
+    .header {
+      font-size: 4vw;
+    }
+    .staffs {
+        margin-top: 80px;
+    }
+  };
+  &.desktop {
+    .header {
+      font-size: 2vw;
+    }
+    .staffs {
+        margin-top: 80px;
+    }
+  }
+}
+
 .container {
-  background-color: #ece9dd;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   font-family: "Raleway";
   font-size: 14px;
   font-weight: 500;
-  background-color: #bcaaa4;
   -webkit-font-smoothing: antialiased;
   * {
     color: white;
@@ -83,9 +120,9 @@ export default {
     height: 100%;
   }
   .header {
-      font-size: 40px;
-      position: absolute;
-      transform: translateY(-50px);
+    font-size: 40px;
+    position: absolute;
+    transform: translateY(-60px);
   }
 }
 

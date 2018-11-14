@@ -3,7 +3,7 @@
         <ul>
             <li>Support</li>
             <li><router-link to="/contact">Contact Us</router-link></li>
-            <li>Facebook</li>
+            <li><a target="_blank" href="https://www.facebook.com/groups/ucsdjsa/">Facebook</a></li>
         </ul>
         <p>&copy; {{date}} UCSD JSA</p>
     </footer>
