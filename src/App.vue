@@ -28,9 +28,10 @@ export default {
 <style lang='scss'>
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c");
 * {
+  transition: 0.5s;
   margin: 0;
   padding: 0;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  color: #707070;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  color: #4b4b4b;
 }
 </style>

@@ -22,7 +22,6 @@
 <script>
 /* eslint-disable */
 export default {
-  components: {},
   props: ["allEvents"],
   data() {
     return {

@@ -45,6 +45,9 @@ export default {
   background: rgba(#eeeeee, 0.2);
   border-bottom: rgba(#000, 0.1) solid 1px;
   box-sizing: border-box;
+  &:hover {
+    background: rgba(#eeeeee, 0.5);
+  }
   img {
     margin: auto 0;
   }
@@ -55,6 +58,7 @@ export default {
     display: flex;
     .tab {
       cursor: pointer;
+      font-weight: bold;
       a {
         text-decoration: none;
       }
