@@ -175,7 +175,7 @@ export default {
 .page-2 {
   box-sizing: border-box;
   &-content {
-    background-color: #ffd5d5;
+    background-image: url("https://previews.123rf.com/images/favetelinguis/favetelinguis1507/favetelinguis150700133/42012790-vector-seamless-pattern-with-hand-drawn-japanese-symbols-including-geisha-sakura-bonsai-lantern-cute.jpg");
     height: 100%;
 
     display: flex;
@@ -236,6 +236,7 @@ export default {
 .page-3 {
   &-content {
     background-color: #e1f2fe;
+    background-image: url("https://previews.123rf.com/images/favetelinguis/favetelinguis1507/favetelinguis150700130/42012788-travel-to-japan-concept-vector-seamless-pattern-with-hand-drawn-japanese-symbols-including-geisha-sa.jpg");
     height: 100%;
     display: flex;
     justify-content: center;

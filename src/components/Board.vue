@@ -66,13 +66,17 @@ export default {
 
 <style scoped lang="scss">
 .outer {
-  background-image: url("https://www.colourbox.com/preview/21436129-pattern-seamless-ocean-waves-hand-draw-japan-style-white-hand-draw-on-a-blue-background.jpg");
+  position: fixed;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://previews.123rf.com/images/vectaray/vectaray1507/vectaray150700124/42314833-seamless-art-deco-pattern-texture-wallpaper-background.jpg");
   background-size: 400px;
   .header {
-      color:rgb(44, 44, 44);
-      background: rgba(255, 255, 255, 0.534);
-      padding: 5px 30px;
-      border-radius: 5px;
+    color: rgb(44, 44, 44);
+    background: rgba(255, 255, 255, 0.534);
+    padding: 5px 30px;
+    border-radius: 5px;
   }
   &.phone {
     padding-top: 80px;

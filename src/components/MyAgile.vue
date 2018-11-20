@@ -2,9 +2,6 @@
      <agile :arrows= false :speed=1000 :autoplay=true :autoplaySpeed=5000>
         <div class="slide slide--1"></div>
         <div class="slide slide--2"></div>
-        <div class="slide slide--3"><h1>slide3</h1></div>
-        <div class="slide slide--4"><h1>slide4</h1></div>
-        <div class="slide slide--5"><h1>slide5</h1></div>
     </agile>
 </template>
 

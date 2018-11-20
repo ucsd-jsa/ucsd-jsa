@@ -1,34 +1,42 @@
 <template>
     <div class="container">
         <div class="container-inner event-list">
-            <div class="event-list-content">
+            <div class="event-list-content" >
                 <div class="filters">
                     <p @click="switchPast(0)">Past</p>
                     <p @click="switchPast(1)">Upcoming</p>
                 </div>
-                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name)"  v-if="isPast" :style="{ 'background-image': 'url(' + item.img + ')'}">
-                    <div class="hole"/>
-                    <p class="event-name" >{{item.name}}</p>
-                    <p class="event-date">
-                        <Zondicon icon='time' class="icon"/>
-                        {{ item.date | moment('MMM Do, h:mm a') }}
-                    </p>
-                    <p class="event-location">
-                        <Zondicon icon='location' class="icon"/>
-                        {{item.location}}
-                    </p>
+                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name)"  v-if="isPast" >
+                    <div class="hole-container">
+                        <div class="hole"/>
+                    </div>
+                    <div class="info-container" :style="{ 'background-image': 'url(' + item.img + ')'}">
+                        <p class="event-name" >{{item.name}}</p>
+                        <p class="event-date">
+                            <Zondicon icon='time' class="icon"/>
+                            {{ item.date | moment('MMM Do, h:mm a') }}
+                        </p>
+                        <p class="event-location">
+                            <Zondicon icon='location' class="icon"/>
+                            {{item.location}}
+                        </p>
+                    </div>
                 </div>
-                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name)" v-if="!isPast" :style="{ 'background-image': 'url(' + item.img + ')'}">
-                    <div class="hole"/>
-                    <p class="event-name">{{item.name}}</p>
-                    <p class="event-date">
-                        <Zondicon icon='time' class="icon"/>
-                        {{ item.date | moment('MMM Do, h:mm a') }}
-                    </p>
-                    <p class="event-location">
-                        <Zondicon icon='location' class="icon"/>
-                        {{item.location}}
-                    </p>
+                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name)" v-if="!isPast">
+                    <div class="hole-container">
+                        <div class="hole"/>
+                    </div>
+                    <div class="info-container" :style="{ 'background-image': 'url(' + item.img + ')'}">
+                        <p class="event-name" >{{item.name}}</p>
+                        <p class="event-date">
+                            <Zondicon icon='time' class="icon"/>
+                            {{ item.date | moment('MMM Do, h:mm a') }}
+                        </p>
+                        <p class="event-location">
+                            <Zondicon icon='location' class="icon"/>
+                            {{item.location}}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,6 +70,7 @@
 /* eslint-disable */
 import Zondicon from "vue-zondicons";
 import { db } from "../Firebase.js";
+
 export default {
   components: {
     Zondicon: Zondicon
@@ -81,7 +90,11 @@ export default {
       },
       pastEvents: [],
       upcomingEvents: [],
-      isPast: true
+      isPast: true,
+      noManga:
+        "https://vollrath.com/ClientCss/images/VollrathImages/No_Image_Available.jpg",
+      noBookMark:
+        "https://firebasestorage.googleapis.com/v0/b/ucsd-jsa.appspot.com/o/background%2Fbackground-3.png?alt=media&token=027a138f-18c2-4420-99e0-8dd895fc5c87"
     };
   },
   computed: {
@@ -90,6 +103,7 @@ export default {
       if (this.hover1) link = this.selectedEvent.img_1_origin;
       return {
         "background-image": "url(" + link + ")",
+        "background-size": "100%",
         top: 0,
         width: "100%",
         height: "57%"
@@ -181,6 +195,19 @@ export default {
       } else {
         this.isPast = false;
       }
+    },
+    filterManga(link) {
+      if (link == "" || link == null) {
+        console.log(this.noManga);
+        return this.noManga;
+      }
+      return link;
+    },
+    filterBookmark(link) {
+      if (link == "") {
+        return this.noBookMark;
+      }
+      return link;
     }
   },
   created: function() {
@@ -194,33 +221,45 @@ export default {
             date: new Date(event.child("date").val()),
             location: event.child("location").val(),
             fbLink: event.child("fbLink").val(),
-            img: event.child("img").val(),
+            img: this.filterBookmark(event.child("img").val()),
             detail: event.child("detail").val(),
             manga: {
-              img_1_origin: event
-                .child("img")
-                .child("img_1_origin")
-                .val(),
-              img_1_manga: event
-                .child("img")
-                .child("img_1_manga")
-                .val(),
-              img_2_origin: event
-                .child("img")
-                .child("img_2_origin")
-                .val(),
-              img_2_manga: event
-                .child("img")
-                .child("img_2_manga")
-                .val(),
-              img_3_origin: event
-                .child("img")
-                .child("img_3_origin")
-                .val(),
-              img_3_manga: event
-                .child("img")
-                .child("img_3_manga")
-                .val()
+              img_1_origin: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_1_origin")
+                  .val()
+              ),
+              img_1_manga: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_1_manga")
+                  .val()
+              ),
+              img_2_origin: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_2_origin")
+                  .val()
+              ),
+              img_2_manga: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_2_manga")
+                  .val()
+              ),
+              img_3_origin: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_3_origin")
+                  .val()
+              ),
+              img_3_manga: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_3_manga")
+                  .val()
+              )
             }
           });
         } else {
@@ -232,30 +271,42 @@ export default {
             img: event.child("img").val(),
             detail: event.child("detail").val(),
             manga: {
-              img_1_origin: event
-                .child("img")
-                .child("img_1_origin")
-                .val(),
-              img_1_manga: event
-                .child("img")
-                .child("img_1_manga")
-                .val(),
-              img_2_origin: event
-                .child("img")
-                .child("img_2_origin")
-                .val(),
-              img_2_manga: event
-                .child("img")
-                .child("img_2_manga")
-                .val(),
-              img_3_origin: event
-                .child("img")
-                .child("img_3_origin")
-                .val(),
-              img_3_manga: event
-                .child("img")
-                .child("img_3_manga")
-                .val()
+              img_1_origin: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_1_origin")
+                  .val()
+              ),
+              img_1_manga: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_1_manga")
+                  .val()
+              ),
+              img_2_origin: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_2_origin")
+                  .val()
+              ),
+              img_2_manga: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_2_manga")
+                  .val()
+              ),
+              img_3_origin: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_3_origin")
+                  .val()
+              ),
+              img_3_manga: this.filterManga(
+                event
+                  .child("manga")
+                  .child("img_3_manga")
+                  .val()
+              )
             }
           });
         }
@@ -281,7 +332,6 @@ export default {
     width: 50%;
     height: 100%;
     padding: 200px 50px 50px;
-    overflow: auto;
   }
 }
 .manga {
@@ -369,19 +419,30 @@ export default {
       margin: 10px 0;
       display: flex;
       overflow: hidden;
-      .hole {
-        margin: auto 20px auto 20px;
-        border-radius: 50%;
-        width: 12px;
-        height: 12px;
-        box-shadow: 0 0 0 99999px rgba($color: white, $alpha: 1);
+      .hole-container {
+        width: 7%;
+        overflow: hidden;
+        display: flex;
+        .hole {
+          margin: auto;
+          border-radius: 50%;
+          width: 12px;
+          height: 12px;
+          box-shadow: 0 0 0 99999px rgba($color: rgb(236, 231, 204), $alpha: 1);
+        }
       }
       box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.61);
-      p {
-        margin: auto 10px;
-      }
-      .event-name {
-        font-weight: bold;
+      .info-container {
+        background-color: white;
+        display: flex;
+        overflow: hidden;
+        width: 93%;
+        p {
+          margin: auto 10px;
+        }
+        .event-name {
+          font-weight: bold;
+        }
       }
     }
   }
