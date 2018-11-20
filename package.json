@@ -22,7 +22,8 @@
     "vue-agile": "^0.3.7",
     "vue-moment": "^4.0.0",
     "vue-mq": "^0.2.1",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-zondicons": "^0.1.10"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

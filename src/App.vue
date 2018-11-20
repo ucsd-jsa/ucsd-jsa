@@ -27,11 +27,14 @@ export default {
 
 <style lang='scss'>
 @import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c");
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
 * {
   transition: 0.5s;
   margin: 0;
   padding: 0;
-  font-family: "M PLUS Rounded 1c", sans-serif;
+  //font-family: "M PLUS Rounded 1c", sans-serif;
+  //font-family: 'Lato', sans-serif;
+  font-family: 'Raleway', sans-serif;
   color: #4b4b4b;
 }
 </style>

@@ -8,8 +8,8 @@
                         <div class="card-content" :style="{ 'background-image': item.img}"></div>
                         <div class="card-carousel--card--footer" :style="{'background-color': item.color}">
                             <p class="event-name">{{ item.name }}</p>
-                            <p class="event-date">{{ item.date | moment('MMM Do, h:mm a') }}</p>
-                            <p class="event-location">{{ item.location }}</p>
+                            <p class="event-date"><Zondicon icon='time' class="icon"/>{{ item.date | moment('MMM Do, h:mm a') }}</p>
+                            <p class="event-location"><Zondicon icon='location' class="icon"/>{{ item.location }}</p>
                         </div>
                     </div>
                 </div>
@@ -21,7 +21,11 @@
 
 <script>
 /* eslint-disable */
+import Zondicon from "vue-zondicons";
 export default {
+  components: {
+    Zondicon: Zondicon
+  },
   props: ["allEvents"],
   data() {
     return {
@@ -58,7 +62,7 @@ export default {
   methods: {
     moveCarousel(direction) {
       var paginationFactor = 0;
-      if (this.$mq === "phone") paginationFactor = 70+2;
+      if (this.$mq === "phone") paginationFactor = 70 + 2;
       if (this.$mq === "tablet") paginationFactor = 25 + 2;
       if (this.$mq === "laptop") paginationFactor = 17.2 + 2;
       if (this.$mq === "desktop") paginationFactor = 16 + 2;
@@ -221,6 +225,7 @@ $card-radius: 40px;
       padding: 5px;
 
       p {
+          margin: 5px;
         color: rgb(48, 48, 48);
       }
     }
@@ -228,6 +233,12 @@ $card-radius: 40px;
 }
 
 $card-margin: 2vw;
+
+.icon {
+  margin-right: 5px;
+  transform: translateY(2px);
+  fill: rgba(0, 0, 0, 0.699);
+}
 
 .card-carousel {
   &.phone {
@@ -242,6 +253,11 @@ $card-margin: 2vw;
     .event-location {
       font-size: 0.8 * $info-size;
     }
+
+    .icon {
+      width: 0.8 * $info-size;
+    }
+
     $card-width: 70vw;
     $card-height: 1.35 * $card-width;
     width: ($card-width + 1vw);
@@ -273,6 +289,10 @@ $card-margin: 2vw;
     }
     .event-location {
       font-size: 0.8 * $info-size;
+    }
+
+    .icon {
+      width: 0.8 * $info-size;
     }
     $card-width: 25vw;
     $card-height: 1.35 * $card-width;
@@ -309,6 +329,10 @@ $card-margin: 2vw;
     .event-location {
       font-size: 0.8 * $info-size;
     }
+
+    .icon {
+      width: 0.8 * $info-size;
+    }
     $card-width: 17.2vw;
     $card-height: 1.35 * $card-width;
     width: 3 * ($card-margin + $card-width);
@@ -343,6 +367,10 @@ $card-margin: 2vw;
     }
     .event-location {
       font-size: 1 * $info-size;
+    }
+
+    .icon {
+      width: 0.8 * $info-size;
     }
     $card-width: 16vw;
     $card-height: 1.35 * $card-width;

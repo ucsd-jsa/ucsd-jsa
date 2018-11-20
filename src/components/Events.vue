@@ -2,9 +2,33 @@
     <div class="container">
         <div class="container-inner event-list">
             <div class="event-list-content">
-                <div class="event-container" v-for="item in pastEvents" v-bind:key="item.name" @click="selectEvent(item.name)">
-                    <p>{{item.name}}</p>
-                    <p>{{ item.date | moment('MMM Do, h:mm a') }}</p>
+                <div class="filters">
+                    <p @click="switchPast(0)">Past</p>
+                    <p @click="switchPast(1)">Upcoming</p>
+                </div>
+                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name)"  v-if="isPast" :style="{ 'background-image': 'url(' + item.img + ')'}">
+                    <div class="hole"/>
+                    <p class="event-name" >{{item.name}}</p>
+                    <p class="event-date">
+                        <Zondicon icon='time' class="icon"/>
+                        {{ item.date | moment('MMM Do, h:mm a') }}
+                    </p>
+                    <p class="event-location">
+                        <Zondicon icon='location' class="icon"/>
+                        {{item.location}}
+                    </p>
+                </div>
+                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name)" v-if="!isPast" :style="{ 'background-image': 'url(' + item.img + ')'}">
+                    <div class="hole"/>
+                    <p class="event-name">{{item.name}}</p>
+                    <p class="event-date">
+                        <Zondicon icon='time' class="icon"/>
+                        {{ item.date | moment('MMM Do, h:mm a') }}
+                    </p>
+                    <p class="event-location">
+                        <Zondicon icon='location' class="icon"/>
+                        {{item.location}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -36,8 +60,12 @@
 
 <script>
 /* eslint-disable */
+import Zondicon from "vue-zondicons";
 import { db } from "../Firebase.js";
 export default {
+  components: {
+    Zondicon: Zondicon
+  },
   data() {
     return {
       hover1: false,
@@ -52,7 +80,8 @@ export default {
         img_3_manga: ""
       },
       pastEvents: [],
-      upcomingEvents: []
+      upcomingEvents: [],
+      isPast: true
     };
   },
   computed: {
@@ -88,6 +117,23 @@ export default {
         height: "50%",
         "background-position-x": "50%"
       };
+    },
+    sorted(val) {
+      return this.isPast
+        ? this.pastEvents.sort((a, b) => {
+            var direction = 1;
+            if (a.date < new Date()) direction = -1;
+            if (a.date > b.date) return direction;
+            if (a.date == b.date) return 0;
+            if (a.date < b.date) return -direction;
+          })
+        : this.upcomingEvents.sort((a, b) => {
+            var direction = 1;
+            if (a.date < new Date()) direction = -1;
+            if (a.date > b.date) return direction;
+            if (a.date == b.date) return 0;
+            if (a.date < b.date) return -direction;
+          });
     }
   },
   methods: {
@@ -112,22 +158,29 @@ export default {
     selectEvent(name) {
       this.selectedEvent.img_1_origin = this.pastEvents.find(
         event => event.name == name
-      ).img.img_1_origin;
+      ).manga.img_1_origin;
       this.selectedEvent.img_1_manga = this.pastEvents.find(
         event => event.name == name
-      ).img.img_1_manga;
+      ).manga.img_1_manga;
       this.selectedEvent.img_2_origin = this.pastEvents.find(
         event => event.name == name
-      ).img.img_2_origin;
+      ).manga.img_2_origin;
       this.selectedEvent.img_2_manga = this.pastEvents.find(
         event => event.name == name
-      ).img.img_2_manga;
+      ).manga.img_2_manga;
       this.selectedEvent.img_3_origin = this.pastEvents.find(
         event => event.name == name
-      ).img.img_3_origin;
+      ).manga.img_3_origin;
       this.selectedEvent.img_3_manga = this.pastEvents.find(
         event => event.name == name
-      ).img.img_3_manga;
+      ).manga.img_3_manga;
+    },
+    switchPast(val) {
+      if (val == 0) {
+        this.isPast = true;
+      } else {
+        this.isPast = false;
+      }
     }
   },
   created: function() {
@@ -143,7 +196,7 @@ export default {
             fbLink: event.child("fbLink").val(),
             img: event.child("img").val(),
             detail: event.child("detail").val(),
-            img: {
+            manga: {
               img_1_origin: event
                 .child("img")
                 .child("img_1_origin")
@@ -178,7 +231,7 @@ export default {
             fbLink: event.child("fbLink").val(),
             img: event.child("img").val(),
             detail: event.child("detail").val(),
-            img: {
+            manga: {
               img_1_origin: event
                 .child("img")
                 .child("img_1_origin")
@@ -228,12 +281,13 @@ export default {
     width: 50%;
     height: 100%;
     padding: 200px 50px 50px;
+    overflow: auto;
   }
 }
 .manga {
   &-content {
     height: 75vh;
-    width: 43vw;
+    width: 40vw;
     position: absolute;
     background-color: rgba(255, 255, 255, 1);
     box-sizing: border-box;
@@ -282,21 +336,58 @@ export default {
 
 .event-list {
   &-content {
-    border: 2px solid black;
     height: 75vh;
     width: 43vw;
     box-sizing: border-box;
     position: relative;
     padding: 0 20px;
+    overflow: auto;
+
+    .filters {
+      display: flex;
+      padding: 5px 0;
+      text-align: center;
+
+      p {
+        cursor: pointer;
+        margin: auto 20px auto 0px;
+        width: 100px;
+        padding: 3px;
+        box-sizing: border-box;
+        border: 1.4px rgb(49, 49, 49) solid;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.31);
+        font-weight: 600;
+        border-radius: 5px;
+      }
+    }
 
     .event-container {
       box-sizing: border-box;
       cursor: pointer;
-      border: 2px solid black;
-      height: 50px;
+      height: 80px;
       width: 100%;
       margin: 10px 0;
+      display: flex;
+      overflow: hidden;
+      .hole {
+        margin: auto 20px auto 20px;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        box-shadow: 0 0 0 99999px rgba($color: white, $alpha: 1);
+      }
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.61);
+      p {
+        margin: auto 10px;
+      }
+      .event-name {
+        font-weight: bold;
+      }
     }
   }
+}
+.icon {
+  width: 1em;
+  transform: translateY(2px);
 }
 </style>
