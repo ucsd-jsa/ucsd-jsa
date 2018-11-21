@@ -15,27 +15,16 @@
 /* eslint-disable */
 export default {
   data() {
-    return {
-    };
+    return {};
   },
-  created() {
-    console.log("created scroll listener");
-    window.addEventListener("mousewheel", this.resizeHeaderOnScroll);
-  },
-  methods: {
-    resizeHeaderOnScroll: function() {
-      const distanceY =
-        window.pageYOffset || document.documentElement.scrollTop;
-      const shrinkOn = 200;
-      console.log("header is" + this.$refs.refHeader);
-    }
-  }
+  created() {},
+  methods: {}
 };
 </script>
 
 <style scoped lang='scss'>
 .active {
-    color: #CB7AA4
+  color: #cb7aa4;
 }
 .header-original {
   width: 100%;

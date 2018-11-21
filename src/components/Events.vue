@@ -212,7 +212,6 @@ export default {
     },
     filterManga(link) {
       if (link == "" || link == null) {
-        console.log(this.noManga);
         return this.noManga;
       }
       return link;
