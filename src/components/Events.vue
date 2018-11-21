@@ -1,14 +1,14 @@
 <template>
-    <div class="container">
-        <div class="container-inner event-list">
-            <div class="filters">
+    <div class="container" :class="$mq">
+        <div class="container-inner event-list" :class="$mq">
+            <div class="filters" :class="$mq">
                 <p @click="switchPast(0)" :class="{active: isPast}">Past</p>
                 <p @click="switchPast(1)" :class="{active: !isPast}">Upcoming</p>
             </div>
-            <div class="event-list-content" >
+            <div class="event-list-content" :class="$mq">
                 <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name, 0)"  v-if="isPast" :class="{active:item.name == selectedEventName}">
-                    <div class="hole-container">
-                        <div class="hole"/>
+                    <div class="hole-container" :class="$mq">
+                        <div class="hole" :class="$mq"/>
                     </div>
                     <div class="info-container" >
                         <p class="event-name" >{{item.name}}</p>
@@ -46,28 +46,28 @@
                 </div>
             </div>
         </div>
-        <div class="container-inner manga">
-            <div class="manga-content manga-content--1 img-1">
+        <div class="container-inner manga" :class="$mq">
+            <div class="manga-content manga-content--1 img-1" :class="$mq">
                 <div class="image" @mouseover='onHover1' @mouseout='notOnHover1' :style='image_1'></div>
             </div>
-            <div class="manga-content manga-content--2 img-2">
+            <div class="manga-content manga-content--2 img-2" :class="$mq">
                 <div class="image" @mouseover='onHover2' @mouseout='notOnHover2' :style='image_2'></div>
             </div>
-            <div class="manga-content manga-content--3 img-3">
+            <div class="manga-content manga-content--3 img-3" :class="$mq">
                 <div class="image" @mouseover='onHover3' @mouseout='notOnHover3' :style='image_3'></div>
             </div>
-            <div class="manga-content manga-content--1 left top"></div>
-            <div class="manga-content manga-content--1 top right"></div>
-            <div class="manga-content manga-content--1 right bottom"></div>
-            <div class="manga-content manga-content--1 bottom left"></div>
-            <div class="manga-content manga-content--2 left top"></div>
-            <div class="manga-content manga-content--2 top right"></div>
-            <div class="manga-content manga-content--2 right bottom"></div>
-            <div class="manga-content manga-content--2 bottom left"></div>
-            <div class="manga-content manga-content--3 left top"></div>
-            <div class="manga-content manga-content--3 top right"></div>
-            <div class="manga-content manga-content--3 right bottom"></div>
-            <div class="manga-content manga-content--3 bottom left"></div>
+            <div class="manga-content manga-content--1 left top" :class="$mq"></div>
+            <div class="manga-content manga-content--1 top right" :class="$mq"></div>
+            <div class="manga-content manga-content--1 right bottom" :class="$mq"></div>
+            <div class="manga-content manga-content--1 bottom left" :class="$mq"></div>
+            <div class="manga-content manga-content--2 left top" :class="$mq"></div>
+            <div class="manga-content manga-content--2 top right" :class="$mq"></div>
+            <div class="manga-content manga-content--2 right bottom" :class="$mq"></div>
+            <div class="manga-content manga-content--2 bottom left" :class="$mq"></div>
+            <div class="manga-content manga-content--3 left top" :class="$mq"></div>
+            <div class="manga-content manga-content--3 top right" :class="$mq"></div>
+            <div class="manga-content manga-content--3 right bottom" :class="$mq"></div>
+            <div class="manga-content manga-content--3 bottom left" :class="$mq"></div>
         </div>
     </div>
 </template>
@@ -334,26 +334,79 @@ export default {
   position: fixed;
   width: 100%;
   height: 100%;
+  overflow: auto;
   background-image: url("https://i0.wp.com/aikidowave.com/wp-content/uploads/2015/02/24374071-seamless-retro-japanese-pattern-texture-background.jpg");
   background-size: 300px;
   display: flex;
-  justify-content: center;
   box-sizing: border-box;
   align-content: center;
   &-inner {
     box-sizing: border-box;
-    width: 50%;
     height: 100%;
-    padding: 200px 50px 50px;
+    &.phone {
+      width: 100%;
+      padding: 100px 10px 10px;
+    }
+
+    &.tablet {
+      width: 50%;
+      padding: 200px 20px 20px;
+    }
+
+    &.laptop {
+      width: 50%;
+      padding: 200px 30px 30px;
+    }
+
+    &.desktop {
+      width: 50%;
+      padding: 200px 50px 50px;
+    }
+  }
+
+  &.phone {
+    flex-direction: column;
+  }
+
+  &.tablet {
+    flex-direction: row;
+  }
+
+  &.laptop {
+    flex-direction: row;
+  }
+
+  &.desktop {
+    flex-direction: row;
   }
 }
 .manga {
+
   &-content {
-    height: 75vh;
-    width: 40vw;
     position: absolute;
     background-color: rgba(255, 255, 255, 1);
     box-sizing: border-box;
+
+    &.phone {
+      height: 100%;
+      width: 95vw;
+    }
+
+    &.tablet {
+      height: 75vh;
+      width: 40vw;
+    }
+
+    &.laptop {
+      height: 75vh;
+      width: 40vw;
+    }
+
+    &.desktop {
+      height: 75vh;
+      width: 40vw;
+    }
+
     &--1 {
       clip-path: polygon(0 0, 100% 0%, 100% 57%, 0 41%);
       background-size: 100%;
@@ -400,9 +453,23 @@ export default {
 .event-list {
   .filters {
     display: flex;
-    padding: 5px 0 5px 30px;
     text-align: center;
 
+    &.phone {
+      padding: 5px 0 5px 10px;
+    }
+
+    &.tablet {
+      padding: 5px 0 5px 30px;
+    }
+
+    &.laptop {
+      padding: 5px 0 5px 30px;
+    }
+
+    &.desktop {
+      padding: 5px 0 5px 30px;
+    }
     p {
       cursor: pointer;
       margin: auto 20px auto 0px;
@@ -422,12 +489,32 @@ export default {
     }
   }
   &-content {
-    height: 70vh;
-    width: 43vw;
     box-sizing: border-box;
-    position: relative;
-    padding: 5px 0 5px 30px;
     overflow: auto;
+
+    &.phone {
+      padding: 5px 0 5px 10px;
+      height: 90%;
+      width: 95vw;
+    }
+
+    &.tablet {
+      padding: 5px 0 5px 30px;
+      height: 70vh;
+      width: 45vw;
+    }
+
+    &.laptop {
+      padding: 5px 0 5px 30px;
+      height: 70vh;
+      width: 43vw;
+    }
+
+    &.desktop {
+      padding: 5px 0 5px 30px;
+      height: 70vh;
+      width: 43vw;
+    }
 
     .event-container {
       box-sizing: border-box;
@@ -439,15 +526,48 @@ export default {
       overflow: hidden;
       box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.61);
       .hole-container {
-        width: 7%;
         overflow: hidden;
         display: flex;
+
+        &.phone {
+          width: 10%;
+        }
+
+        &.tablet {
+          width: 10%;
+        }
+
+        &.laptop {
+          width: 10%;
+        }
+
+        &.desktop {
+          width: 7%;
+        }
+
         .hole {
           margin: auto;
           border-radius: 50%;
-          width: 15px;
-          height: 15px;
           box-shadow: 0 0 0 99999px rgba($color: rgb(145, 120, 93), $alpha: 1);
+          &.phone {
+            width: 10px;
+            height: 10px;
+          }
+
+          &.tablet {
+            width: 12px;
+            height: 12px;
+          }
+
+          &.laptop {
+            width: 15px;
+            height: 15px;
+          }
+
+          &.desktop {
+            width: 15px;
+            height: 15px;
+          }
         }
       }
       .info-container {
@@ -487,10 +607,10 @@ export default {
         height: 150px;
         box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.61);
         .hole-container {
-          width: 5%;
+          width: 7%;
         }
         .info-container {
-          width: 60%;
+          width: 58%;
           flex-direction: column;
           padding: 10px 0;
           font-size: 1.2em;
