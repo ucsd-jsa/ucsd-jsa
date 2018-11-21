@@ -26,8 +26,8 @@
                     </div>
                 </div>
                 <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name, 1)"  v-if="!isPast" :class="{active:item.name == selectedEventName}">
-                    <div class="hole-container">
-                        <div class="hole"/>
+                    <div class="hole-container" :class="$mq">
+                        <div class="hole" :class="$mq"/>
                     </div>
                     <div class="info-container" >
                         <p class="event-name" >{{item.name}}</p>

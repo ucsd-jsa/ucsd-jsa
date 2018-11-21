@@ -4,8 +4,7 @@
         <div class="content">
             <h1 class="main-header">Welcome to UCSD JSA!</h1>
             <h2 class="sub-header">Japanese Student Association</h2>
-            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi a felis ac neque dignissim posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. In nec sollicitudin ligula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In egestas quam et facilisis vulputate. Fusce ultrices vitae lectus et varius. Phasellus nisl quam, ultricies nec fringilla sit amet, gravida a magna. Praesent dolor risus, sollicitudin a elementum nec, semper porta lorem. Mauris vitae leo et justo aliquam tincidunt vel eget massa. Maecenas porta erat egestas erat lobortis, ut efficitur erat iaculis.</p>
-            <h2 class="video-header">Officers intro video</h2>
+            <p class="description">JSA is a social org that promotes new connections for Japanese and other ethnicities alike, establishing new bonds and spreading japanese culture through various events held throughout the </p>
             <video controls>
                 <source src="https://firebasestorage.googleapis.com/v0/b/ucsd-jsa.appspot.com/o/JSA%20Officer%20Intro%202018-2019.mp4?alt=media&token=99a5ceb4-b15c-4e06-9f62-91c982f387c8" type="video/mp4"/>
             </video>

@@ -66,8 +66,6 @@ export default {
 
 <style scoped lang="scss">
 .outer {
-  position: fixed;
-  overflow: auto;
   width: 100%;
   height: 100%;
   background-image: url("https://previews.123rf.com/images/vectaray/vectaray1507/vectaray150700124/42314833-seamless-art-deco-pattern-texture-wallpaper-background.jpg");
