@@ -1,16 +1,16 @@
 <template>
     <div class="container">
         <div class="container-inner event-list">
+            <div class="filters">
+                <p @click="switchPast(0)" :class="{active: isPast}">Past</p>
+                <p @click="switchPast(1)" :class="{active: !isPast}">Upcoming</p>
+            </div>
             <div class="event-list-content" >
-                <div class="filters">
-                    <p @click="switchPast(0)">Past</p>
-                    <p @click="switchPast(1)">Upcoming</p>
-                </div>
-                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name)"  v-if="isPast" >
+                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name, 0)"  v-if="isPast" :class="{active:item.name == selectedEventName}">
                     <div class="hole-container">
                         <div class="hole"/>
                     </div>
-                    <div class="info-container" :style="{ 'background-image': 'url(' + item.img + ')'}">
+                    <div class="info-container" >
                         <p class="event-name" >{{item.name}}</p>
                         <p class="event-date">
                             <Zondicon icon='time' class="icon"/>
@@ -21,12 +21,15 @@
                             {{item.location}}
                         </p>
                     </div>
+                    <div class="img-container">
+                        <div class="img-content" :style="{ 'background-image': 'url(' + item.img + ')'}"> </div>
+                    </div>
                 </div>
-                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name)" v-if="!isPast">
+                <div class="event-container" v-for="item in sorted" v-bind:key="item.name" @click="selectEvent(item.name, 1)"  v-if="!isPast" :class="{active:item.name == selectedEventName}">
                     <div class="hole-container">
                         <div class="hole"/>
                     </div>
-                    <div class="info-container" :style="{ 'background-image': 'url(' + item.img + ')'}">
+                    <div class="info-container" >
                         <p class="event-name" >{{item.name}}</p>
                         <p class="event-date">
                             <Zondicon icon='time' class="icon"/>
@@ -36,6 +39,9 @@
                             <Zondicon icon='location' class="icon"/>
                             {{item.location}}
                         </p>
+                    </div>
+                    <div class="img-container">
+                        <div class="img-content" :style="{ 'background-image': 'url(' + item.img + ')'}"> </div>
                     </div>
                 </div>
             </div>
@@ -80,6 +86,7 @@ export default {
       hover1: false,
       hover2: false,
       hover3: false,
+      selectedEventName: "",
       selectedEvent: {
         img_1_origin: "",
         img_1_manga: "",
@@ -169,25 +176,32 @@ export default {
     notOnHover3() {
       this.hover3 = false;
     },
-    selectEvent(name) {
-      this.selectedEvent.img_1_origin = this.pastEvents.find(
+    selectEvent(name, val) {
+      var list;
+      if (val == 0) {
+        list = this.pastEvents;
+      } else {
+        list = this.upcomingEvents;
+      }
+      this.selectedEvent.img_1_origin = list.find(
         event => event.name == name
       ).manga.img_1_origin;
-      this.selectedEvent.img_1_manga = this.pastEvents.find(
+      this.selectedEvent.img_1_manga = list.find(
         event => event.name == name
       ).manga.img_1_manga;
-      this.selectedEvent.img_2_origin = this.pastEvents.find(
+      this.selectedEvent.img_2_origin = list.find(
         event => event.name == name
       ).manga.img_2_origin;
-      this.selectedEvent.img_2_manga = this.pastEvents.find(
+      this.selectedEvent.img_2_manga = list.find(
         event => event.name == name
       ).manga.img_2_manga;
-      this.selectedEvent.img_3_origin = this.pastEvents.find(
+      this.selectedEvent.img_3_origin = list.find(
         event => event.name == name
       ).manga.img_3_origin;
-      this.selectedEvent.img_3_manga = this.pastEvents.find(
+      this.selectedEvent.img_3_manga = list.find(
         event => event.name == name
       ).manga.img_3_manga;
+      this.selectedEventName = name;
     },
     switchPast(val) {
       if (val == 0) {
@@ -385,40 +399,46 @@ export default {
 }
 
 .event-list {
+  .filters {
+    display: flex;
+    padding: 5px 0 5px 30px;
+    text-align: center;
+
+    p {
+      cursor: pointer;
+      margin: auto 20px auto 0px;
+      width: 100px;
+      padding: 3px;
+      box-sizing: border-box;
+      border: 1.4px rgb(49, 49, 49) solid;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.61);
+      font-weight: 600;
+      border-radius: 5px;
+    }
+    .active {
+      border-color: rgb(203, 122, 164);
+      color: rgb(203, 122, 164);
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.61);
+      transform: translateY(1px);
+    }
+  }
   &-content {
-    height: 75vh;
+    height: 70vh;
     width: 43vw;
     box-sizing: border-box;
     position: relative;
-    padding: 0 20px;
+    padding: 5px 0 5px 30px;
     overflow: auto;
-
-    .filters {
-      display: flex;
-      padding: 5px 0;
-      text-align: center;
-
-      p {
-        cursor: pointer;
-        margin: auto 20px auto 0px;
-        width: 100px;
-        padding: 3px;
-        box-sizing: border-box;
-        border: 1.4px rgb(49, 49, 49) solid;
-        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.31);
-        font-weight: 600;
-        border-radius: 5px;
-      }
-    }
 
     .event-container {
       box-sizing: border-box;
       cursor: pointer;
       height: 80px;
-      width: 100%;
+      width: 80%;
       margin: 10px 0;
       display: flex;
       overflow: hidden;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.61);
       .hole-container {
         width: 7%;
         overflow: hidden;
@@ -426,14 +446,12 @@ export default {
         .hole {
           margin: auto;
           border-radius: 50%;
-          width: 12px;
-          height: 12px;
-          box-shadow: 0 0 0 99999px rgba($color: rgb(236, 231, 204), $alpha: 1);
+          width: 15px;
+          height: 15px;
+          box-shadow: 0 0 0 99999px rgba($color: rgb(145, 120, 93), $alpha: 1);
         }
       }
-      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.61);
       .info-container {
-        background-color: white;
         display: flex;
         overflow: hidden;
         width: 93%;
@@ -442,6 +460,48 @@ export default {
         }
         .event-name {
           font-weight: bold;
+        }
+        background-image: url("https://previews.123rf.com/images/tukkki/tukkki1410/tukkki141000128/33042224-vintage-hand-drawn-art-deco-pattern.jpg");
+        background-size: 150%;
+      }
+      .img-container {
+        display: none;
+        box-sizing: border-box;
+        padding: 10px;
+        vertical-align: middle;
+        text-align: center;
+        background-image: url("https://firebasestorage.googleapis.com/v0/b/ucsd-jsa.appspot.com/o/background%2Fbackground-3.png?alt=media&token=027a138f-18c2-4420-99e0-8dd895fc5c87");
+        .img-content {
+          box-sizing: border-box;
+          box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+          border: 5px white solid;
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          background-position: center;
+        }
+      }
+
+      &.active {
+        transform: translateX(10px);
+        width: 95%;
+        height: 150px;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.61);
+        .hole-container {
+          width: 5%;
+        }
+        .info-container {
+          width: 60%;
+          flex-direction: column;
+          padding: 10px 0;
+          font-size: 1.2em;
+          p {
+            transform: none;
+          }
+        }
+        .img-container {
+          width: 35%;
+          display: table-cell;
         }
       }
     }

@@ -12,7 +12,6 @@ import VueAgile from 'vue-agile'
 import VueMq from 'vue-mq'
 import Vuebar from "vuebar";
 
-
 Vue.config.productionTip = false
 Vue.use(Vuebar)
 Vue.use(VueFullpage)

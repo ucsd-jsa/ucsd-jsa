@@ -2,11 +2,11 @@
     <header ref='refHeader' class='header-original' :class="$mq">
         <img id='logo' src='../assets/JSAlogoattemptred.png' alt='UCSD_JSA_LOGO'>
         <ul class='tabs'>
-            <li class='tab'><router-link to="/" :style='{"color":"#CB7AA4"}'>Home</router-link></li>
-            <li class='tab'><router-link to="/about">About</router-link></li>
-            <li class='tab'><router-link to="/events">Events</router-link></li>
-            <li class='tab'><router-link to="/board">Board</router-link></li>
-            <li class='tab'><router-link to="/contact">Contact</router-link></li>
+            <li class='tab'><router-link active-class='active' to="/" exact>Home</router-link></li>
+            <li class='tab'><router-link active-class='active' to="/about">About</router-link></li>
+            <li class='tab'><router-link active-class='active' to="/events">Events</router-link></li>
+            <li class='tab'><router-link active-class='active' to="/board">Board</router-link></li>
+            <li class='tab'><router-link active-class='active' to="/contact">Contact</router-link></li>
         </ul>
     </header>
 </template>
@@ -15,7 +15,8 @@
 /* eslint-disable */
 export default {
   data() {
-    return {};
+    return {
+    };
   },
   created() {
     console.log("created scroll listener");
@@ -33,6 +34,9 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+.active {
+    color: #CB7AA4
+}
 .header-original {
   width: 100%;
   position: fixed;

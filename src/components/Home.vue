@@ -12,6 +12,7 @@
                 </div>
             </div>
             <div class='page-2 page'>
+                <div class="page-2-background"></div>
                 <div class='page-2-content' :class="$mq">
                     <h1>Upcoming Events</h1>
                     <img src='../assets/Machine_Full.png' alt='Events'>
@@ -19,6 +20,7 @@
                 </div>
             </div>
             <div class='page-3 page'>
+                <div class="page-3-background"></div>
                 <div class='page-3-content' :class="$mq">
                     <h1>Past Events</h1>
                     <event-card v-bind:allEvents="pastEvents"></event-card>
@@ -33,8 +35,7 @@
 /* eslint-disable */
 import MyAgile from "./MyAgile";
 import EventCard from "./EventCard";
-import {db} from '../Firebase.js'
-
+import { db } from "../Firebase.js";
 
 export default {
   components: {
@@ -74,7 +75,7 @@ export default {
     }
   },
   created: function() {
-    db.ref('events').once("value", events => {
+    db.ref("events").once("value", events => {
       events.forEach(event => {
         var now = new Date();
         var eventDate = new Date(event.child("date").val());
@@ -174,10 +175,18 @@ export default {
 }
 .page-2 {
   box-sizing: border-box;
-  &-content {
-    background-image: url("https://previews.123rf.com/images/favetelinguis/favetelinguis1507/favetelinguis150700133/42012790-vector-seamless-pattern-with-hand-drawn-japanese-symbols-including-geisha-sakura-bonsai-lantern-cute.jpg");
+  &-background {
+    width: 100%;
     height: 100%;
-
+    position: fixed;
+    z-index: -100;
+    filter: blur(1px);
+    background-image: url("https://previews.123rf.com/images/favetelinguis/favetelinguis1507/favetelinguis150700133/42012790-vector-seamless-pattern-with-hand-drawn-japanese-symbols-including-geisha-sakura-bonsai-lantern-cute.jpg");
+    background-size: 800px;
+  }
+  &-content {
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: center;
     align-content: center;
@@ -234,10 +243,20 @@ export default {
   }
 }
 .page-3 {
-  &-content {
-    background-color: #e1f2fe;
-    background-image: url("https://previews.123rf.com/images/favetelinguis/favetelinguis1507/favetelinguis150700130/42012788-travel-to-japan-concept-vector-seamless-pattern-with-hand-drawn-japanese-symbols-including-geisha-sa.jpg");
+  box-sizing: border-box;
+  &-background {
+    width: 100%;
     height: 100%;
+    position: fixed;
+    z-index: -100;
+    filter: blur(1px);
+    background-image: url("https://previews.123rf.com/images/favetelinguis/favetelinguis1507/favetelinguis150700130/42012788-travel-to-japan-concept-vector-seamless-pattern-with-hand-drawn-japanese-symbols-including-geisha-sa.jpg");
+    background-size: 800px;
+    background-position: 50%;
+  }
+  &-content {
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
     display: flex;
     justify-content: center;
     align-content: center;
