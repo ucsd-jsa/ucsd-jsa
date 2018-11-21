@@ -51,11 +51,11 @@ export default {
         dir: "v",
         duation: 500,
         beforeChange: function(ele, current, next) {
-          console.log("before", current, next);
+          //console.log("before", current, next);
           that.index = next;
         },
         afterChange: function(ele, current, next) {
-          console.log("after", current);
+          //console.log("after", current);
           that.index = current;
         }
       },

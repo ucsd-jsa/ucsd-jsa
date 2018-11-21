@@ -4,7 +4,7 @@
         <div class="card-carousel" :class="$mq">
             <div class="card-carousel--overflow-container" :class="$mq">
                 <div class="card-carousel-cards" :style="{ transform: 'translateX' + '(' + currentOffset + 'vw' + ')'}">
-                    <div class="card-carousel--card" v-for="item in sorted_items" v-bind:key="item.name">
+                    <div class="card-carousel--card" v-for="item in sorted_items" v-bind:key="item.name" @click="openLink(item.fbLink)">
                         <div class="card-content" :style="{ 'background-image': item.img}"></div>
                         <div class="card-carousel--card--footer" :style="{'background-color': item.color}">
                             <p class="event-name">{{ item.name }}</p>
@@ -84,6 +84,13 @@ export default {
         this.windowSize = newSize;
         this.currentOffset = 0;
         this.leftCounter = 0;
+      }
+    },
+    openLink(fbLink) {
+      if (fbLink != "" && fbLink != null) {
+        window.open(fbLink);
+      } else {
+          alert("Facebook event page is not up yet!")
       }
     }
   },
@@ -225,7 +232,7 @@ $card-radius: 40px;
       padding: 5px;
 
       p {
-          margin: 5px;
+        margin: 5px;
         color: rgb(48, 48, 48);
       }
     }
