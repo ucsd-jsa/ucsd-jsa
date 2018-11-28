@@ -158,7 +158,7 @@ $karuta-height: 29px;
   position: absolute;
   bottom: 0;
   color: #fff;
-  transform: translateY(40%);
+  transform: translateY(57%);
   transition: 0.6s 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
 
   p {
@@ -190,6 +190,10 @@ $karuta-height: 29px;
     transform: translateY(100%);
     transition: 5s 1s $returnEasing;
   }
+}
+
+.card-info {
+    width: 100%;
 }
 
 .card-info h1 {

@@ -13,7 +13,9 @@
 
 <script>
 /* eslint-disable */
-import "vue-awesome/icons";
+import "vue-awesome/icons/brands/facebook";
+import "vue-awesome/icons/brands/instagram";
+import "vue-awesome/icons/envelope-square";
 import Icon from "vue-awesome/components/Icon";
 export default {
   components: {

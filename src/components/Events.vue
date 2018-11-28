@@ -13,12 +13,16 @@
                     <div class="info-container" >
                         <p class="event-name" >{{item.name}}</p>
                         <p class="event-date">
-                            <Zondicon icon='time' class="icon"/>
+                            <v-Icon class="icon" name="calendar-alt" scale="1" />
                             {{ item.date | moment('MMM Do, h:mm a') }}
                         </p>
                         <p class="event-location">
-                            <Zondicon icon='location' class="icon"/>
+                            <v-Icon class="icon" name="map-marker-alt" scale="1" />
                             {{item.location}}
+                        </p>
+                        <p class="event-link" @click="openLink(item.fbLink)">
+                            <v-Icon class="icon" name="brands/facebook" scale="1" />
+                            Event Page
                         </p>
                     </div>
                     <div class="img-container">
@@ -32,12 +36,16 @@
                     <div class="info-container" >
                         <p class="event-name" >{{item.name}}</p>
                         <p class="event-date">
-                            <Zondicon icon='time' class="icon"/>
+                            <v-Icon class="icon" name="calendar-alt" scale="1" />
                             {{ item.date | moment('MMM Do, h:mm a') }}
                         </p>
                         <p class="event-location">
-                            <Zondicon icon='location' class="icon"/>
-                            {{item.location}}
+                            <v-Icon class="icon" name="map-marker-alt" scale="1" />
+                            {{ item.location }}
+                        </p>
+                        <p class="event-link" @click="openLink(item.fbLink)">
+                            <v-Icon class="icon" name="brands/facebook" scale="1" />
+                            Event Page
                         </p>
                     </div>
                     <div class="img-container">
@@ -75,11 +83,17 @@
 <script>
 /* eslint-disable */
 import Zondicon from "vue-zondicons";
+
 import { db } from "../Firebase.js";
+import "vue-awesome/icons/map-marker-alt";
+import "vue-awesome/icons/calendar-alt";
+import "vue-awesome/icons/brands/facebook";
+import Icon from "vue-awesome/components/Icon";
 
 export default {
   components: {
-    Zondicon: Zondicon
+    Zondicon: Zondicon,
+    "v-Icon": Icon
   },
   data() {
     return {
@@ -88,12 +102,17 @@ export default {
       hover3: false,
       selectedEventName: "",
       selectedEvent: {
-        img_1_origin: "",
-        img_1_manga: "",
-        img_2_origin: "",
-        img_2_manga: "",
-        img_3_origin: "",
-        img_3_manga: ""
+        img_1_origin: "https://pbs.twimg.com/media/Cez9d3dWIAIFJD8.jpg",
+        img_1_manga:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Great_Wave_off_Kanagawa2.jpg/1200px-Great_Wave_off_Kanagawa2.jpg",
+        img_2_origin:
+          "https://upload.wikimedia.org/wikipedia/commons/5/50/Miyagawa_Issh%C3%B4-Spring_Pastimes-H.jpg",
+        img_2_manga:
+          "http://1.bp.blogspot.com/-TUH3OGTTdaQ/VWfeJVm5Q5I/AAAAAAAAAa8/RyZMVpIzpeg/s1600/japanese_traditional_art__No_2_by_nadav613.jpg",
+        img_3_origin:
+          "https://www.artranked.com/images/49/495123ab14e4f0fe5b39e5c0d7b6e9d2.jpeg",
+        img_3_manga:
+          "http://cdn.shopify.com/s/files/1/1374/8369/files/Hiroshige_Shinagawa_Station_large.jpeg?v=1496699672"
       },
       pastEvents: [],
       upcomingEvents: [],
@@ -221,6 +240,13 @@ export default {
         return this.noBookMark;
       }
       return link;
+    },
+    openLink(fbLink) {
+      if (fbLink != "" && fbLink != null) {
+        window.open(fbLink);
+      } else {
+        alert("Facebook event page is not up yet!");
+      }
     }
   },
   created: function() {
@@ -381,7 +407,6 @@ export default {
   }
 }
 .manga {
-
   &-content {
     position: absolute;
     background-color: rgba(255, 255, 255, 1);
@@ -577,6 +602,10 @@ export default {
         p {
           margin: auto 10px;
         }
+
+        .event-link {
+          display: none;
+        }
         .event-name {
           font-weight: bold;
         }
@@ -616,6 +645,9 @@ export default {
           font-size: 1.2em;
           p {
             transform: none;
+          }
+          .event-link {
+            display: initial;
           }
         }
         .img-container {

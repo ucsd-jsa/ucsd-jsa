@@ -5,7 +5,9 @@
             <div class="container-inner" v-for="item in officers" v-bind:key="item.name">
                 <card :data-image="item.img">
                     <h1 slot="header">{{item.name}}</h1>
-                    <p slot="content">{{item.intro}}</p>
+                    <p slot="content">{{item.position}}</p>
+                    <p slot="content">{{item.major}}</p>
+                    <p slot="content">{{item.year}}&nbsp;Year</p>
                 </card>
             </div>
         </div>
@@ -14,7 +16,9 @@
             <div class="container-inner" v-for="item in staffs" v-bind:key="item.name">
                 <card :data-image="item.img">
                     <h1 slot="header">{{item.name}}</h1>
-                    <p slot="content">{{item.intro}}</p>
+                    <p slot="content">{{item.position}}</p>
+                    <p slot="content">{{item.major}}</p>
+                    <p slot="content">{{item.year}}&nbsp;Year</p>
                 </card>
             </div>
         </div>
@@ -75,6 +79,7 @@ export default {
     background: rgba(255, 255, 255, 0.534);
     padding: 5px 30px;
     border-radius: 5px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
   }
   &.phone {
     padding-top: 80px;
