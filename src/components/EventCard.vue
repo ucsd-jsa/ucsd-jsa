@@ -33,7 +33,7 @@ export default {
       items: [],
       windowSize: 0,
       leftCounter: 0,
-      colors: ["#FD8181", "#FDE689", "#FEFF99", "#BEFF95", "#A88EEA"]
+      colors: ["#FD8181", "#FDE689", "#FEFF99", "#BEFF95", "#A88EEA", "#FFA0AD", "#D3E9FF"]
     };
   },
   created: function() {
