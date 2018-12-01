@@ -361,7 +361,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-image: url("https://i0.wp.com/aikidowave.com/wp-content/uploads/2015/02/24374071-seamless-retro-japanese-pattern-texture-background.jpg");
+  background-image: url("https://us.123rf.com/450wm/pauljune/pauljune1312/pauljune131200023/24374071-perfeita-retro-japon.jpg?ver=6");
   background-size: 300px;
   display: flex;
   box-sizing: border-box;
