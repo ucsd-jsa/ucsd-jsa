@@ -278,7 +278,7 @@ export default {
       padding-top: 10vh;
       h1 {
         position: absolute;
-        top: 23vh;
+        top: 22vh;
         left: 10vw;
       }
       img {
@@ -290,7 +290,7 @@ export default {
       padding-top: 10vh;
       h1 {
         position: absolute;
-        top: 24vh;
+        top: 21vh;
         left: 10vw;
       }
       img {
@@ -302,7 +302,7 @@ export default {
       padding-top: 10vh;
       h1 {
         position: absolute;
-        top: 24vh;
+        top: 20vh;
         left: 10vw;
         font-size: 4vw;
       }
