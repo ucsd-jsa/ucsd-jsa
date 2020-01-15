@@ -22,15 +22,15 @@ Vue.component('event-card', {
         <circle cx="300" cy="206" r="65" fill="#FBFDFF" stroke="#F3F3F3" stroke-width="10"/>\
         <circle cx="300" cy="206" r="35" fill="#FBFDFF" stroke="#F3F3F3" stroke-width="10"/>\
       </svg>\
-      <div class="z-10">\
+      <div class="z-10 flex flex-col">\
         <h4 class="mb-4 text-gray-700 font-Montserrat font-semibold text-lg truncate">{{ event.title }}</h4>\
-        <div class="flex flex-row mb-2">\
+        <div class="flex flex-row mb-2 items-center">\
           <svg class="flex-none w-6 fill-current text-gray-700 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zm1-9.414V6h-2v6c0 .275.111.524.29.705l1.71-1.12zm0 0l-1.707 1.121 3.992 3.993 1.415-1.415-3.7-3.7z"/>\
           </svg>\
           <p class="text-gray-600 font-Montserrat text-lg truncate">{{ event.time }}</p>\
         </div>\
-        <div class="flex flex-row">\
+        <div class="flex flex-row items-center">\
           <svg class="flex-none w-6 fill-current text-gray-700 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22c5-4 8-7.582 8-12a8 8 0 0 0-16 0c0 4.418 3 8 8 12zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>\
           </svg>\
