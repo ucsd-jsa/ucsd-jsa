@@ -25,17 +25,17 @@
   <body class="antialiased bg-red-400 select-none">
 
     <!--Back button-->
-    <a class="absolute top-0 m-8" href="./index.html" title="Return to homepage">
+    <a id="back-button" class="absolute top-0 m-8 invisible z-30" href="./index.html" title="Return to homepage">
       <img class="w-24 h-24" src="./img/logo-white.png" alt="JSA Logo">
     </a>
 
     <!--Page banner-->
-    <div class="p-8 flex flex-col justify-center items-center w-full h-screen bg-cover bg-top border-b-4 border-red-400" style="background-image:url(img/jsa-banner.jpg)">
+    <div id="banner" class="p-8 flex flex-col justify-center items-center w-full h-screen bg-cover bg-top border-b-4 border-red-400 invisible">
       <h1 class="animated slow fadeIn my-10 text-center font-Montserrat font-semibold text-5xl text-white leading-tight">Who We Are</h1>
     </div>
 
     <!--Arrow-->
-    <svg class="animated fadeInDown delay-1s absolute inset-x-0 bottom-0 mx-auto w-24 fill-current text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+    <svg id="arrow" class="absolute inset-x-0 bottom-0 mx-auto w-24 fill-current text-white invisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
     </svg>
 
@@ -45,7 +45,7 @@
         <h2 class="mb-2 font-Montserrat text-lg text-red-900 font-semibold">Our Mission</h2>
         <p class="mb-8 font-Montserrat text-lg text-red-800">JSA is a social org that promotes new connections for Japanese and other ethnicities alike, establishing new bonds and spreading Japanese culture through various events held throughout the school year. From weekly language tables to a matsuri festival in the spring that takes up all of Library Walk, our events won’t disappoint you – and we'll welcome you with open arms! So, what are you waiting for? Come out to one of our events – we’re looking forward to seeing you around!</p>
       </div>
-      <img class="mb-8 rounded-lg shadow sm:max-w-sm" src="./img/board-photo.jpg" alt="JSA Board Photo">
+      <div id="aboutBoard"></div>
     </div>
 
     <div class="flex flex-col w-full p-8 lg:px-16 lg:py-12 bg-red-200">
@@ -109,8 +109,9 @@
 
     <!--Scripts-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
-    <script src="board-cards.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-storage.js"></script>
+    <script src="about-data.js"></script>
   </body>
 </html>
